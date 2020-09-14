@@ -1,18 +1,24 @@
 const express = require("express");
-const service = express();
+const app = express();
 const upload =  require("express-fileupload");
-service.use(upload());
-service.listen(3000);
+app.use(upload());
+app.use(express.static(".."));
+app.listen(3000);
 console.log("Listening on port 3000");
 
-service.get("/test", function(req,res){
-    
+app.get("/", function(req,res){
+    res.sendFile("frontend/index.html",{root: ".."});
 });
-service.post("/test", function(req,res){
+app.post("/test", async function(req,res){
     if(req.files){
-        var file = req.files.xmlFileUpload;
-        console.log(file);
-        file.mv("./uploads/" + file.name);
-        res.send("File received!");
+        let files = req.files;
+        let fileKeyArray = Object.keys(files);
+        for(let i = 0;i < fileKeyArray.length;i++)
+        {
+           let currentFile = files[fileKeyArray[i]];
+           console.log(currentFile);
+           await currentFile.mv("./uploads/" + currentFile.name); 
+        }
     }
+    res.send("Files received!");
 });
