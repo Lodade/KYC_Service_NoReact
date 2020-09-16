@@ -1,9 +1,10 @@
+const PORT = process.env.PORT || 3000;
 const express = require("express");
 const app = express();
 const upload =  require("express-fileupload");
 app.use(upload());
 app.use(express.static(".."));
-app.listen(3000);
+app.listen(PORT);
 console.log("Listening on port 3000");
 
 app.get("/", function(req,res){
