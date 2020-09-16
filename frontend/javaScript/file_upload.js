@@ -14,7 +14,7 @@ async function fileUploadProcess(){
         let fileName = "xmlFile" + i;
         filesToUpload.append(fileName,fileInput.files[i]);
     }
-    let response = await fetch("http://localhost:3000/test", {
+    let response = await fetch("/test", {
         method: "POST",
         body: filesToUpload
     });
@@ -24,4 +24,3 @@ async function fileUploadProcess(){
         console.log("File transfer to server failed");
     }
 }
-console.log("file_upload loaded");
