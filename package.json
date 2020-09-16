@@ -1,0 +1,26 @@
+{
+  "name": "kyc_backend",
+  "version": "1.0.0",
+  "description": "KYC backend service",
+  "main": "main_File.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lodade/KYC_Service.git"
+  },
+  "keywords": [
+    "kyc"
+  ],
+  "author": "Jacob Wagner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lodade/KYC_Service/issues"
+  },
+  "homepage": "https://github.com/Lodade/KYC_Service#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0"
+  }
+}
