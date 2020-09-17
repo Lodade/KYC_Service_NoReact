@@ -1,5 +1,6 @@
 const PORT = process.env.PORT || 3000;
 const express = require("express");
+const fs = require("fs");
 const app = express();
 const upload =  require("express-fileupload");
 app.use(upload());
@@ -18,7 +19,14 @@ app.post("/test", async function(req,res){
         {
            let currentFile = files[fileKeyArray[i]];
            console.log(currentFile);
-           await currentFile.mv(`${__dirname}/uploads/` + currentFile.name); 
+           await currentFile.mv(`${__dirname}/uploads/` + currentFile.name);
+           fs.readFile(`${__dirname}/uploads/` + currentFile.name, "utf8", (err, data) =>{
+               if(err){
+                   console.error(err);
+                   return;
+               }
+               console.log(data);
+           }); 
         }
     }
     res.send("Files received!");
