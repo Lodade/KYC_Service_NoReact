@@ -18,7 +18,7 @@ app.post("/test", async function(req,res){
         {
            let currentFile = files[fileKeyArray[i]];
            console.log(currentFile);
-           await currentFile.mv("uploads/" + currentFile.name); 
+           await currentFile.mv("./uploads/" + currentFile.name); 
         }
     }
     res.send("Files received!");
