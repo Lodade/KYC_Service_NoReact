@@ -8,7 +8,7 @@ app.listen(PORT);
 console.log("Listening on port 3000");
 
 app.get("/", function(req,res){
-    res.sendFile(`${__dirname}/frontend/index.html`,{root: "."});
+    res.sendFile("frontend/index.html",{root: `${__dirname}`});
 });
 app.post("/test", async function(req,res){
     if(req.files){
