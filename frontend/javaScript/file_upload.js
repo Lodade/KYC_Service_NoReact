@@ -8,7 +8,6 @@ uploadForm.addEventListener("submit",function(e){
 
 async function fileUploadProcess(){
     let filesToUpload = new FormData();
-    let filesHolder = [];
     for(let i = 0;i < fileInput.files.length;i++)
     {
         let fileName = "xmlFile" + i;
