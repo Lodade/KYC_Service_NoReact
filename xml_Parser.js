@@ -134,6 +134,15 @@ fs.readFile(__dirname + "/uploads/FUNDLIST_I110.xml", function(err, data){
                                 }
                             }
                         }
+                    } else{
+                        for(let i = 0;i < accountTypeList.length;i++)
+                        {
+                            bulkContent += null;
+                            if(i < (accountTypeList.length - 1))
+                            {
+                                bulkContent += ",";
+                            }
+                        }
                     }
                     if(selectedProduct.Eligible[0].NomAcctTypes && selectedProduct.Eligible[0].NomAcctTypes[0].ALL)
                     {
@@ -158,6 +167,15 @@ fs.readFile(__dirname + "/uploads/FUNDLIST_I110.xml", function(err, data){
                                 {
                                     bulkContent += ",";
                                 }
+                            }
+                        }
+                    } else{
+                        for(let i = 0;i < accountTypeList.length;i++)
+                        {
+                            bulkContent += null;
+                            if(i < (accountTypeList.length - 1))
+                            {
+                                bulkContent += ",";
                             }
                         }
                     }
