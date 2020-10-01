@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS fsrv_mins;
+TRUNCATE TABLE fsrv_prod;

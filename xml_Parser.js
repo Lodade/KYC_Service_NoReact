@@ -5,7 +5,7 @@ let mariadb = require("mariadb");
 let parser = xml2js.Parser();
 let pool;
 
-async function createMariadbConnection() {
+async function createMariadbConnectionPool() {
     try {
         pool = mariadb.createPool({
             host: "127.0.0.1",
@@ -14,17 +14,17 @@ async function createMariadbConnection() {
             database: "kyc_test",
             connectionLimit: 5
         });
+        console.log("Pool Established!");
     } catch (err) {
         throw err;
-    } finally {
-        console.log("Pool Established!");
     }
 }
-createMariadbConnection();
+createMariadbConnectionPool();
 fundlistReader();
 async function fundlistReader() {
     fs.readFile(__dirname + "/uploads/FUNDLIST_I110.xml",'utf8', async function (err, data) {
         await fsrv_prodParser(err, data);
+        //await fsrv_minsParser(err,data);
     });
 }
 async function fsrv_prodParser(err, data) {
@@ -84,7 +84,7 @@ async function fsrv_prodParser(err, data) {
                 bulkContent[bulkContentSpot] = curProdArray;
                 bulkContentSpot++;
                 if (completedNum == 1000) {
-                    await fsrv_prodBulkInsert(bulkContent);
+                    await bulkInsert(bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID, CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE, CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE, SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, REG_DOC_TYPE, ELIG_US, ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     bulkContentSpot = 0;
                     bulkContent = [];
                     completedNum = 0;
@@ -92,23 +92,86 @@ async function fsrv_prodParser(err, data) {
                 curProdArray = [];
             }
         }
-        await fsrv_prodBulkInsert(bulkContent);
+        if(bulkContent[0] != null){
+            await bulkInsert(bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID, CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE, CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE, SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, REG_DOC_TYPE, ELIG_US, ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        }
         pool.end();
         //console.log(bulkContent);
     });
 }
-async function fsrv_prodBulkInsert(bulkContent){
+async function fsrv_minsParser(err, data) {
+    parser.parseString(data, async function (err, result) {
+        let completedNum = 0;
+        let bulkContent = [];
+        let bulkContentSpot = 0;
+        let curProdArray = [];
+        let selectedProduct = "";
+        let curProdSpot = 0;
+        let sql = "";
+        let fundListNum = result.FundSetup.FundList.length;
+        for (let a = 0; a < fundListNum; a++) {
+            let investProductNum = result.FundSetup.FundList[a].InvstProduct.length;
+            for (let b = 0; b < investProductNum; b++) {
+                selectedProduct = result.FundSetup.FundList[a].InvstProduct[b];
+                sql = "SELECT FSRV_ID FROM fsrv_prod WHERE (MGMT_CODE='" + 
+                result.FundSetup.FundList[a].MgmtCode[0] + "') AND (FUND_ID='" +
+                selectedProduct.FundID[0] + "')";
+                curProdArray[0] = await selectQuery(sql);
+                curProdSpot++;
+                //Adding minimums to the bulk content
+                currentObject = selectedProduct.Minimums[0];
+                currentKeys = Object.keys(currentObject);
+                for (let i = 0; i < currentKeys.length; i++) {
+                    currentSubObject = currentObject[currentKeys[i]];
+                    curProdArray[curProdSpot] = parseFloat(currentSubObject[0]);
+                    curProdSpot++;
+                }
+                completedNum++;
+                bulkContent[bulkContentSpot] = curProdArray;
+                bulkContentSpot++;
+                if (completedNum == 1000) {
+                    await bulkInsert(bulkContent, "INSERT INTO fsrv_mins(SEQ_ID, MIN_FIRST, MIN_NXT, MIN_SELL, MIN_SW, MIN_TRSF, MIN_BAL, MIN_PAC, MIN_SWP) values (?,?,?,?,?,?,?,?,?)");
+                    bulkContentSpot = 0;
+                    bulkContent = [];
+                    completedNum = 0;
+                }
+                curProdSpot = 0;
+                curProdArray = [];
+            }
+        }
+        await bulkInsert(bulkContent, "INSERT INTO fsrv_mins(SEQ_ID, MIN_FIRST, MIN_NXT, MIN_SELL, MIN_SW, MIN_TRSF, MIN_BAL, MIN_PAC, MIN_SWP) values (?,?,?,?,?,?,?,?,?)");
+        pool.end();
+        //console.log(bulkContent);
+    });
+}
+async function selectQuery(sql){
     let con;
-    let sql = "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID, CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE, CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE, SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, REG_DOC_TYPE, ELIG_US, ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    let result;
+    try {
+        con = await pool.getConnection();
+        result = await con.query(sql);
+        result = result[0].FSRV_ID;
+    } catch (queryError){
+        throw queryError;
+    } finally {
+        if(con){
+            con.release();
+        }
+    }
+    return result;
+}
+async function bulkInsert(bulkContent, sql){
+    let con;
     try {
         con = await pool.getConnection();
         con.beginTransaction();
         await con.batch(sql, bulkContent);
         con.commit();
-        console.log("Query Completed Successfully!");
     } catch (batchError) {
-        con.rollback();
-        throw bulkContent + "\n" + batchError;
+        if(con){
+            con.rollback();
+        }
+        throw batchError;
     } finally {
         if (con) {
             con.release();
