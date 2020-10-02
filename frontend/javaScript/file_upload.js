@@ -1,3 +1,4 @@
+formSetup();
 function formSetup(){
     let uploadForm = document.getElementById("uploadForm");
     let fileInput = document.getElementById("xmlFileUpload");
