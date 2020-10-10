@@ -6,11 +6,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <form id="uploadForm" method="post" enctype="multipart/form-data">
-        <label for="xmlFileUpload">Please input an XML file</label><br>
-        <input type="file" id="xmlFileUpload" name="xmlFileUpload" accept=".xml" multiple><br>
-        <input type="submit" id="xmlSubmit" value="Submit">
-    </form>
+    <div class="topNavBar">
+        <a>Home</a>
+		<a>Explore</a>
+        <a>Analyze</a>
+        <a>Manage</a>
+    </div>
+    <div class="sideNavBar"> 
+        <a>Dashboard</a>
+        <a onclick="pageManager.changePage(2,2)">View Product</a>
+        <a>View Related</a>
+        <a>View Similar</a>
+        <a>Find By Criteria</a>
+    </div>
+    <div id="displayArea">
+        <div id="explore_viewProduct">
+            <p><b>Product Search</b></p>
+            <form>
+                <label for="symbolInput">Enter a symbol:</label>
+                <input type="text" id="symbolInput" name="symbolInput"><br><br>
+                <input type="submit" value="Search">
+            </form>
+        </div>
+        <div id="manage">
+            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                <label for="xmlFileUpload">Please input an XML file</label><br>
+                <input type="file" id="xmlFileUpload" name="xmlFileUpload" accept=".xml" multiple><br>
+                <input type="submit" id="xmlSubmit" value="Submit">
+            </form>
+        </div>
+    </div>
 </body>
 <script src="frontend/javaScript/file_upload.js"></script>
+<script src="frontend/javaScript/page_manager.js"></script>
 </html>

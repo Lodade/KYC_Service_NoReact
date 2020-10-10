@@ -6,7 +6,7 @@ const upload =  require("express-fileupload");
 app.use(upload());
 app.use(express.static(`${__dirname}`));
 app.listen(PORT);
-console.log("Listening on port 3000");
+console.log("Listening on port " + PORT);
 
 app.get("/", function(req,res){
     res.sendFile("frontend/index.html",{root: `${__dirname}`});
