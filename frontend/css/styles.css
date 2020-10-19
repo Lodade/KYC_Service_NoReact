@@ -85,6 +85,21 @@
 		height: 93.7vh;
 		width: 91vw;
 	}
+	#resultsAreaHeader{
+		position: absolute;
+		top: 0vh;
+		left: 0vw;
+		height: 23vh;
+		width: 91vw;
+		margin-left: 2vw;
+	}
+	#resultsAreaDetails{
+		position: absolute;
+		top: 23vh;
+		left: 0vw;
+		height: 70.7vh;
+		width: 91vw;
+	}
 }
 a:link {
 	text-decoration: none;

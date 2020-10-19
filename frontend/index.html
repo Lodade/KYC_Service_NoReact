@@ -22,11 +22,19 @@
     <div id="displayArea">
         <div id="explore_viewProduct">
             <p><b>Product Search</b></p>
-            <form>
+            <form id="queryForm">
                 <label for="symbolInput">Enter a symbol:</label>
                 <input type="text" id="symbolInput" name="symbolInput"><br><br>
                 <input type="submit" value="Search">
             </form>
+        </div>
+        <div id="resultsAreaHeader">
+            <p><a>Product Search</a> > <a>Results</a></p>
+            <p id="resultsFirstRow"></p>
+            <p id="resultsSecondRow"></p>
+        </div>
+        <div id="resultsAreaDetails">
+
         </div>
         <div id="manage">
             <form id="uploadForm" method="post" enctype="multipart/form-data">
@@ -37,6 +45,8 @@
         </div>
     </div>
 </body>
-<script src="frontend/javaScript/file_upload.js"></script>
-<script src="frontend/javaScript/page_manager.js"></script>
+<script src="frontend/javaScript/fileUpload.js"></script>
+<script src="frontend/javaScript/pageManager.js"></script>
+<script src="frontend/javaScript/queryManager.js"></script>
+<script src="frontend/javaScript/resultsManager.js"></script>
 </html>
