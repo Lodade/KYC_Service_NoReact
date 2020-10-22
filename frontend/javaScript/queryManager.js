@@ -1,10 +1,13 @@
 function queryConnector(){
     let queryForm = document.getElementById("queryForm");
     let symbolInput = document.getElementById("symbolInput");
-    queryForm.addEventListener("submit",function(e){
-        e.preventDefault();
-        queryProcess();
-    });
+    if(queryForm.getAttribute('hasListener') == null){
+        queryForm.addEventListener("submit",function (e){
+            e.preventDefault();
+            queryProcess();
+        });
+        queryForm.setAttribute('hasListener', true);
+    }
     async function queryProcess(){
         let mgmtCode;
         let fundID;

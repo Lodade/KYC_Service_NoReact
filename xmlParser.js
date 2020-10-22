@@ -19,10 +19,12 @@ async function createMariadbConnectionPool() {
     }
     return tempPool;
 }
-test();
 async function test(){
     let pool =  await createMariadbConnectionPool();
     await fundlistReader(pool);
+}
+if(process.argv[2] == "run"){
+    test();
 }
 async function fundlistReader(pool) {
     fs.readFile(__dirname + "/uploads/FUNDLIST_I110.xml", 'utf8', async function (err, data) {
@@ -98,11 +100,64 @@ async function fsrv_prodParser(err, data, pool) {
                 curProdArray[27] = selectedProduct.Eligible[0].EligOffshore[0];
                 curProdArray[28] = selectedProduct.Eligible[0].EligPAC[0];
                 curProdArray[29] = selectedProduct.Eligible[0].EligSWP[0];
+                if(selectedProduct.CUSIP){
+                    curProdArray[30] = selectedProduct.CUSIP[0];
+                }else {
+                    curProdArray[30] = null;
+                }
+                if(selectedProduct.Properties[0].DiscBrokerOnly){
+                    curProdArray[31] = selectedProduct.Properties[0].DiscBrokerOnly[0];
+                }else {
+                    curProdArray[31] = null;
+                }
+                if(selectedProduct.Properties[0].Brand){
+                    curProdArray[32] = selectedProduct.Properties[0].Brand[0];
+                }else {
+                    curProdArray[32] = null;
+                }
+                if(selectedProduct.Properties[0].FeeComm[0].DSCSchedule){
+                    curProdArray[33] = selectedProduct.Properties[0].FeeComm[0].DSCSchedule[0].DSC[0];
+                    curProdArray[34] = selectedProduct.Properties[0].FeeComm[0].DSCSchedule[0].DSCDuration[0];
+                }else {
+                    curProdArray[33] = null;
+                    curProdArray[34] = null;
+                }
+                if(selectedProduct.Properties[0].EligFeeAcct){
+                    curProdArray[35] = selectedProduct.Properties[0].EligFeeAcct[0];
+                }else {
+                    curProdArray[35] =  null;
+                }
+                if(selectedProduct.ISIN){
+                    curProdArray[36] = selectedProduct.ISIN[0];
+                }else {
+                    curProdArray[36] = null;
+                }
+                if(selectedProduct.Properties[0].NegotiateFee){
+                    curProdArray[37] = selectedProduct.Properties[0].NegotiateFee[0];
+                }else {
+                    curProdArray[37] = null;
+                }
+                if(selectedProduct.Properties[0].NegotiateTrail){
+                    curProdArray[38] = selectedProduct.Properties[0].NegotiateTrail[0];
+                }else {
+                    curProdArray[38] = null;
+                }
+                if(selectedProduct.Properties[0].SerClassSeq){
+                    curProdArray[39] = selectedProduct.Properties[0].SerClassSeq[0];
+                }else {
+                    curProdArray[39] = null;
+                }
                 completedNum++;
                 bulkContent[bulkContentSpot] = curProdArray;
                 bulkContentSpot++;
                 if (completedNum == 1000) {
-                    await bulkInsert(pool, bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID, CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE, CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE, SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, SERIES, CLASS, REG_DOC_TYPE, ELIG_US, ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    await bulkInsert(pool, bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID," + 
+                    " CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE," +
+                    " CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE," +
+                    " SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, SERIES, CLASS, REG_DOC_TYPE, ELIG_US," + 
+                    " ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP, CUSIP, DISC_BROKER_ONLY, BRAND, DSC, DSC_DURATION," +
+                    " FEE_BASED_ELIG, ISIN, NEGOT_FEE, NEGOT_TRAILER, SER_CLASS_SEQ_IN_NAME)" + 
+                    " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                     bulkContentSpot = 0;
                     bulkContent = [];
                     completedNum = 0;
@@ -111,7 +166,13 @@ async function fsrv_prodParser(err, data, pool) {
             }
         }
         if (bulkContent[0] != null) {
-            await bulkInsert(pool, bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID, CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE, CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE, SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, SERIES, CLASS, REG_DOC_TYPE, ELIG_US, ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            await bulkInsert(pool, bulkContent, "INSERT INTO fsrv_prod(MGMT_CODE, EFF_DT, FUND_ID, FUND_LINK_ID," + 
+            " CUT_OFF_TIME, MGMT_CO_BRAND_NM, ENG_SHORT_NM, ENG_LONG_NM, FRE_SHORT_NM, FRE_LONG_NM, PROD_TYPE," +
+            " CURR, LOAD_TYPE, CLASSIFICATION, TAX_STRUCT, MM_FLAG, BARE_TRUSTEE_FLAG, RISK_CLASS, ACCT_SETUP_FEE," +
+            " SERV_FEE_RATE, SERV_FEE_FREQ, MAX_COMM, MAX_SW_COMM, SERIES, CLASS, REG_DOC_TYPE, ELIG_US," + 
+            " ELIG_OFFSHORE, ELIG_PAC, ELIG_SWP, CUSIP, DISC_BROKER_ONLY, BRAND, DSC, DSC_DURATION," +
+            " FEE_BASED_ELIG, ISIN, NEGOT_FEE, NEGOT_TRAILER, SER_CLASS_SEQ_IN_NAME)" + 
+            " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         }
         pool.end();
         //console.log(bulkContent);

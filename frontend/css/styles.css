@@ -91,6 +91,8 @@
 		left: 0vw;
 		height: 23vh;
 		width: 91vw;
+	}
+	#resultsAreaHeader p{
 		margin-left: 2vw;
 	}
 	#resultsAreaDetails{
@@ -99,6 +101,25 @@
 		left: 0vw;
 		height: 70.7vh;
 		width: 91vw;
+		overflow: auto;
+	}
+	#resultsTable{
+		border-collapse: collapse;
+		margin-left: 2vw;
+	}
+	#resultsTable th{
+		position: sticky;
+		top: 0;
+		padding: 1vh 1vw;
+		background-color: gray;
+		text-align: left;
+		max-width: 20%;
+	}
+	#resultsTable td{
+		border: 1px solid black;
+		padding: 1vh 1vw; 
+		text-align: left;
+		max-width: 20%;
 	}
 }
 a:link {
