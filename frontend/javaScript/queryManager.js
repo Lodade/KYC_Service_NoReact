@@ -2,38 +2,41 @@ function queryConnector(){
     let queryForm = document.getElementById("queryForm");
     let symbolInput = document.getElementById("symbolInput");
     if(queryForm.getAttribute('hasListener') == null){
-        queryForm.addEventListener("submit",function (e){
+        queryForm.addEventListener("submit", async function (e){
+            let mgmtCode;
+            let fundID;
+            let input;
+            if(symbolInput.value != ""){
+                input = symbolInput.value;
+                mgmtCode = symbolInput.value.substring(0, 3);
+                fundID = symbolInput.value.substring(3, symbolInput.value.length);
+            }
             e.preventDefault();
-            queryProcess();
+            let result = await queryProcess("SELECT * FROM fsrv_prod WHERE (MGMT_CODE='" + mgmtCode + "') AND (FUND_ID='" +
+            fundID + "')");
+            openResultsPage(result);
         });
         queryForm.setAttribute('hasListener', true);
     }
-    async function queryProcess(){
-        let mgmtCode;
-        let fundID;
-        let input;
-        if(symbolInput.value != ""){
-            input = symbolInput.value;
-            mgmtCode = symbolInput.value.substring(0, 3);
-            fundID = symbolInput.value.substring(3, symbolInput.value.length);
-        }
-        let query = "SELECT * FROM fsrv_prod WHERE (MGMT_CODE='" + mgmtCode + "') AND (FUND_ID='" +
-        fundID + "')";
-        let response = await fetch("/query", {
-            method: "POST",
-            body: query
-        });
-        if(response.ok){
-            let result = await response.json();
-            if(result.length > 0){
-                console.log(result[0]);
-                pageManager.changePage(2,0,1);
-                resultsBuilder(result[0]);
-            } else {
-                console.log("No product exists by that name");
-            }
+}
+function openResultsPage(result){
+    pageManager.changePage(2,0,1);
+    resultsBuilder(result[0]);
+}
+async function queryProcess(query){
+    let response = await fetch("/query", {
+        method: "POST",
+        body: query
+    });
+    if(response.ok){
+        let result = await response.json();
+        if(result.length > 0){
+            console.log(result[0]);
+            return result;
         } else {
-            console.log("Query results not received");
+            console.log("No product exists by that name");
         }
+    } else {
+        console.log("Query results not received");
     }
 }

@@ -1,4 +1,4 @@
-function resultsBuilder(resultObject){
+async function resultsBuilder(resultObject){
     function resultsHeaderPopulator(){
         let resultsFirstRow = document.getElementById("resultsFirstRow");
         let resultsSecondRow = document.getElementById("resultsSecondRow");
@@ -19,7 +19,7 @@ function resultsBuilder(resultObject){
         resultsSecondRow.innerHTML = "Name: " +  resultObject.ENG_LONG_NM + " Class: " + classHolder + 
         " Series: " + seriesHolder + " Load: " + resultObject.LOAD_TYPE; 
     }
-    function resultsDetailsPopulator(){
+    async function resultsDetailsPopulator(){
         let objectKeys = Object.keys(resultObject);
         let holder;
         let elementHolder;
@@ -32,5 +32,5 @@ function resultsBuilder(resultObject){
         }
     }
     resultsHeaderPopulator();
-    resultsDetailsPopulator();
+    await resultsDetailsPopulator();
 }
