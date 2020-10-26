@@ -31,7 +31,6 @@ async function queryProcess(query){
     if(response.ok){
         let result = await response.json();
         if(result.length > 0){
-            console.log(result[0]);
             return result;
         } else {
             console.log("No product exists by that name");
