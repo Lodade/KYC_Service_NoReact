@@ -10,11 +10,18 @@ function queryConnector(){
                 input = symbolInput.value;
                 mgmtCode = symbolInput.value.substring(0, 3);
                 fundID = symbolInput.value.substring(3, symbolInput.value.length);
+                e.preventDefault();
+                let result = await queryProcess("SELECT * FROM fsrv_prod WHERE (MGMT_CODE='" + mgmtCode + "') AND (FUND_ID='" +
+                fundID + "')");
+                if(result[0] != null){
+                    openResultsPage(result);
+                }else{
+                    console.log("No product exists by that name");
+                }
+            }else{
+                console.log("No product has been entered");
+                e.preventDefault();
             }
-            e.preventDefault();
-            let result = await queryProcess("SELECT * FROM fsrv_prod WHERE (MGMT_CODE='" + mgmtCode + "') AND (FUND_ID='" +
-            fundID + "')");
-            openResultsPage(result);
         });
         queryForm.setAttribute('hasListener', true);
     }
@@ -30,11 +37,7 @@ async function queryProcess(query){
     });
     if(response.ok){
         let result = await response.json();
-        if(result.length > 0){
-            return result;
-        } else {
-            console.log("No product exists by that name");
-        }
+        return result;
     } else {
         console.log("Query results not received");
     }

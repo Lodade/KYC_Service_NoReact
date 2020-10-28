@@ -240,338 +240,338 @@
                     <td id="SELL_settle"></td>
                 </tr>
                 <tr>
-                    <td>Minimums:</td>
-                    <td id=""></td>
+                    <td><b>Minimums:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('minimums','hiddenMinimums')">Toggle Section</button></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum Initial Investment</td>
                     <td id="MIN_FIRST"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum Subsequent Investment</td>
                     <td id="MIN_NXT"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum Sell</td>
                     <td id="MIN_SELL"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum Switch</td>
                     <td id="MIN_SW"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum Account Balance</td>
                     <td id="MIN_BAL"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum PAC Investment</td>
                     <td id="MIN_PAC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenMinimums minimums">
                     <td>Minimum SWP</td>
                     <td id="MIN_SWP"></td>
                 </tr>
                 <tr>
-                    <td>Eligible Provinces:</td>
-                    <td id=""></td>
+                    <td><b>Eligible Provinces:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('provinces','hiddenProvinces')">Toggle Section</button> <span id="provincesStatusButton" class="statusButton"></span></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Alberta</td>
                     <td id="AB_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>British Columbia</td>
                     <td id="BC_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Manitoba</td>
                     <td id="MB_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>New Brunswick</td>
                     <td id="NB_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>New Foundland</td>
                     <td id="NL_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Northwest Territories</td>
                     <td id="NT_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Nova Scotia</td>
                     <td id="NS_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Nunavut</td>
                     <td id="NU_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Ontario</td>
                     <td id="ON_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Prince Edward Island</td>
                     <td id="PE_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Quebec</td>
                     <td id="QC_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Saskatchewan</td>
                     <td id="SK_prov"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenProvinces provinces">
                     <td>Yukon Territories</td>
                     <td id="YT_prov"></td>
                 </tr>
                 <tr>
-                    <td>Eligible Transactions:</td>
-                    <td id=""></td>
+                    <td><b>Eligible Transactions:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('transactions','hiddenTransactions')">Toggle Section</button> <span id="transactionsStatusButton" class="statusButton"></span></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Buy</td>
                     <td id="B_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Commission Rebate</td>
                     <td id="CR_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Switch-in</td>
                     <td id="SI_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Switch-out</td>
                     <td id="SO_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Sell</td>
                     <td id="S_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Internal Transfer-in</td>
                     <td id="II_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Internal Transfer-out</td>
                     <td id="IO_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>External Transfer-in</td>
                     <td id="EI_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>External Transfer-out</td>
                     <td id="EO_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>LSIF Rollover-in</td>
                     <td id="LI_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>LSIF Rollover-out</td>
                     <td id="LO_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Fee</td>
                     <td id="F_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Reset</td>
                     <td id="R_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>ICT-in</td>
                     <td id="CI_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>ICT-out</td>
                     <td id="CO_status"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenTransactions transactions">
                     <td>Seg. Maturity</td>
                     <td id="SM_status"></td>
                 </tr>
                 <tr>
-                    <td>Accounts - Client Name:</td>
-                    <td id=""></td>
+                    <td><b>Accounts - Client Name:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('cnaccounts','hiddenCnaccounts')">Toggle Section</button> <span id="cnaccountsStatusButton" class="statusButton"></span></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>01</td>
                     <td id="01_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>02</td>
                     <td id="02_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>04</td>
                     <td id="04_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>05</td>
                     <td id="05_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>06</td>
                     <td id="06_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>07</td>
                     <td id="07_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>08</td>
                     <td id="08_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>10</td>
                     <td id="10_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>11</td>
                     <td id="11_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>12</td>
                     <td id="12_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>13</td>
                     <td id="13_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>14</td>
                     <td id="14_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>15</td>
                     <td id="15_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>16</td>
                     <td id="16_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>17</td>
                     <td id="17_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>18</td>
                     <td id="18_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>19</td>
                     <td id="19_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>20</td>
                     <td id="20_CNACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenCnaccounts cnaccounts">
                     <td>21</td>
                     <td id="21_CNACC"></td>
                 </tr>
                 <tr>
-                    <td>Accounts - Nom/Inter:</td>
-                    <td id=""></td>
+                    <td><b>Accounts - Nom/Inter:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('niaccounts','hiddenNiaccounts')">Toggle Section</button> <span id="niaccountsStatusButton" class="statusButton"></span></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>01</td>
                     <td id="01_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>02</td>
                     <td id="02_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>04</td>
                     <td id="04_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>05</td>
                     <td id="05_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>06</td>
                     <td id="06_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>07</td>
                     <td id="07_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>08</td>
                     <td id="08_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>10</td>
                     <td id="10_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>11</td>
                     <td id="11_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>12</td>
                     <td id="12_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>13</td>
                     <td id="13_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>14</td>
                     <td id="14_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>15</td>
                     <td id="15_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>16</td>
                     <td id="16_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>17</td>
                     <td id="17_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>18</td>
                     <td id="18_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>19</td>
                     <td id="19_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>20</td>
                     <td id="20_NIACC"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenNiaccounts niaccounts">
                     <td>21</td>
                     <td id="21_NIACC"></td>
                 </tr>
                 <tr>
-                    <td>Dividend Options:</td>
-                    <td id=""></td>
+                    <td><b>Dividend Options:</b></td>
+                    <td><button type="button" class="expandButton" onclick="toggleDetails('dividends','hiddenDividends')">Toggle Section</button></td>
                 </tr>
-                <tr>
+                <tr class="hiddenDividends dividends">
                     <td>Dividend Frequency</td>
                     <td id="DIV_FREQ"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenDividends dividends">
                     <td>Distribution Offered - Reinvest</td>
                     <td id="DIV_OPT_1"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenDividends dividends">
                     <td>Distribution Offered - Cash</td>
                     <td id="DIV_OPT_4"></td>
                 </tr>
-                <tr>
+                <tr class="hiddenDividends dividends">
                     <td>Distribution Offered - Redirection</td>
                     <td id="DIV_OPT_5"></td>
                 </tr>
@@ -590,4 +590,5 @@
 <script src="frontend/javaScript/pageManager.js"></script>
 <script src="frontend/javaScript/queryManager.js"></script>
 <script src="frontend/javaScript/resultsManager.js"></script>
+<script src="frontend/javaScript/detailsVisibilityControl.js"></script>
 </html>

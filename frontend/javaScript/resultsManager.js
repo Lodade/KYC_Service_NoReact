@@ -36,22 +36,27 @@ async function resultsBuilder(resultObject){
                 elementHolder.innerHTML =  holder; 
             }
         }
+
         query = "SELECT * FROM fsrv_elig_acct_types acct WHERE acct.SEQ_ID=('" + resultObject.FSRV_ID + "') AND acct.DESIGNATION=('1')";
         let accountResults = await queryProcess(query);
         console.log(accountResults);
+        let statusButton = document.getElementById("cnaccountsStatusButton");
         listInterpreter(accountResults, ["01","02","04","05","06","07","08","10","11","12","13","14","15","16","17","18","19","20","21"],
-         "_CNACC", "ACCT_TYPE");
+         "_CNACC", "ACCT_TYPE", statusButton);
 
         query = "SELECT * FROM fsrv_elig_acct_types acct WHERE acct.SEQ_ID=('" + resultObject.FSRV_ID + "') AND acct.DESIGNATION=('2')";
         accountResults = await queryProcess(query);
         console.log(accountResults);
+        statusButton = document.getElementById("niaccountsStatusButton");
         listInterpreter(accountResults, ["01","02","04","05","06","07","08","10","11","12","13","14","15","16","17","18","19","20","21"],
-         "_NIACC", "ACCT_TYPE");
+         "_NIACC", "ACCT_TYPE", statusButton);
 
         query = "SELECT * FROM fsrv_elig_prov prov WHERE prov.SEQ_ID=('" + resultObject.FSRV_ID + "')";
         let eligibleProvs = await queryProcess(query);
         console.log(eligibleProvs);
-        listInterpreter(eligibleProvs, ["AB","BC","MB","NB","NL","NT","NS","NU","ON","PE","QC","SK","YT"], "_prov", "PROV_STATE");
+        statusButton = document.getElementById("provincesStatusButton");
+        listInterpreter(eligibleProvs, ["AB","BC","MB","NB","NL","NT","NS","NU","ON","PE","QC","SK","YT"],
+         "_prov", "PROV_STATE", statusButton);
         
         query = "SELECT * FROM fsrv_elig_trxn trxn WHERE trxn.SEQ_ID=('" + resultObject.FSRV_ID + "')";
         let eligibleTrxns = await queryProcess(query);
@@ -78,15 +83,22 @@ async function resultsBuilder(resultObject){
     async function trxnsInterpreter(resultsHolder){
         let holder;
         let trxnID;
+        let allCount = 0;
+        let statusButton = document.getElementById("transactionsStatusButton");
         for(let i = 0;i < resultsHolder.length;i++){
             holder = resultsHolder[i];
             trxnID = holder["TRXN_TYPE"] + "_status";
             document.getElementById(trxnID).innerHTML = holder.TRXN_STATUS;
+            if(holder.TRXN_STATUS == "A"){
+                allCount++;
+            }
         } 
+        statusInterpreter(allCount, resultsHolder.length, statusButton);
     }
-    async function listInterpreter(resultsHolder, list, type, check){
+    async function listInterpreter(resultsHolder, list, type, check, statusButton){
         let ID;
         let found;
+        let yesCount = 0;
         for(let i = 0;i < list.length;i++){
             found = false;
             ID = list[i] + type;
@@ -94,12 +106,23 @@ async function resultsBuilder(resultObject){
                 if(resultsHolder[k][check] == list[i]){
                     document.getElementById(ID).innerHTML = "Y";
                     found = true;
+                    yesCount++;
                 }
             }
             if(found == false){
                 document.getElementById(ID).innerHTML = "N";
             }
         } 
+        statusInterpreter(yesCount, list.length, statusButton);
+    }
+    async function statusInterpreter(foundCount, maxCount, buttonElement){
+        if(foundCount == maxCount){
+            buttonElement.classList.add("greenStatusBackground");
+        }else if(foundCount < maxCount && foundCount > 0){
+            buttonElement.classList.add("yellowStatusBackground");
+        }else if(foundCount == 0){
+            buttonElement.classList.add("redStatusBackground");
+        }
     }
     resultsHeaderPopulator();
     await resultsDetailsPopulator();

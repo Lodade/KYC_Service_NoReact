@@ -29,6 +29,45 @@
 	padding: 1vh 1vw;
 	font-size: 1.2em;
 }
+.hiddenMinimums{
+	display: none;
+}
+.hiddenProvinces{
+	display: none;
+}
+.hiddenTransactions{
+	display: none;
+}
+.hiddenCnaccounts{
+	display: none;
+}
+.hiddenNiaccounts{
+	display: none;
+}
+.hiddenDividends{
+	display: none;
+}
+.expandButton{
+	display: inline-block;
+	vertical-align: middle;
+}
+.statusButton{
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: middle;
+	border: 1px solid black;
+}
+.greenStatusBackground{
+	background-color: green;
+}
+.yellowStatusBackground{
+	background-color: yellow;
+}
+.redStatusBackground{
+	background-color: red;
+}
 @media screen and (max-width: 600px){
 	.sideNavBar {
 		position: absolute;
@@ -106,6 +145,7 @@
 	#resultsTable{
 		border-collapse: collapse;
 		margin-left: 2vw;
+		margin-bottom: 2vh;
 	}
 	#resultsTable th{
 		position: sticky;
@@ -117,7 +157,7 @@
 	}
 	#resultsTable td{
 		border: 1px solid black;
-		padding: 1vh 1vw; 
+		padding: 1vh 1vw;
 		text-align: left;
 		max-width: 20%;
 	}
