@@ -1,6 +1,6 @@
 const express = require("express");
 const fs = require("fs");
-const xmlParser = require("./xmlParser");
+const xmlParser = require("./fileParser");
 const upload =  require("express-fileupload");
 
 const PORT = process.env.PORT || 3000;

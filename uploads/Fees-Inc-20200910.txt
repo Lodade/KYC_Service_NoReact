@@ -1,0 +1,19 @@
+FundataKey|RRSPAnnualAdminFees|RRIFAnnualAdminFees|EnglishSwitchFees|FrenchSwitchFees|RRSPWithdrawalFees|RRIFWithdrawalFees|EnglishTrailerFees|FrenchTrailerFees|PACPlan|SWPPlan|SWPMinBalance|EnglishLoad|FrenchLoad|NoLoadFund|ChoiceOfFrontOrBackFee|MaxFrontEndPercent|MaxBackEndPercent|EnglishBackEndFeeAppTo|FrenchBackEndFeeAppTo
+62407|||||||||N|N||No Load|Sans frais|Y|N||||
+62515|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||FE - 1%; DSC - After 7 years: 1%; LL - After 3 years: 1% each year.||Y|Y|10000|Choice of Front or Back|Choix entre FE et FD|N|Y|5|5.5|Deferred - initial sum|Reporté - somme initiale
+62516|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||FE - 1%; DSC - After 7 years: 1%; LL - After 3 years: 1% each year.||Y|Y|10000|Choice of Front or Back|Choix entre FE et FD|N|Y|5|5.5|Deferred - initial sum|Reporté - somme initiale
+62517|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||There are no trailing commissions paid in respect of this Series of units.|n/a|Y|Y|10000|No Load|Sans frais|Y|N||||
+62518|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||There are no trailing commissions paid in respect of this Series of units.|n/a|Y|Y|10000|No Load|Sans frais|Y|N||||
+62519|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||There are no trailing commissions paid in respect of this Series of units.||N|N||No Load|Sans frais|Y|N||||
+67928|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||DSC - After 7 years: 1%; LL - After 3 years: 1%.||Y|Y|10000|Choice of Front or Back|Choix entre FE et FD|N|Y|5|5.5|Deferred - initial sum|Reporté - somme initiale
+67929|||Up to 2% of the value of the switched shares.|Jusqu'à 2% de la valeur de la part commutés.|||There are no trailing commissions paid in respect of this Series of units.|n/a|Y|Y|10000|No Load|Sans frais|Y|N||||
+67932|||Your dealer's firm may charge a negotiable fee of up to 2% being switched.||||There are no trailing commissions paid in respect of this Series of units.|n/a|N|N||No Load|Sans frais|Y|N||||
+93180|||||||||N|N||No Load|Sans frais|N|N||||
+93183|||||||||N|N||No Load|Sans frais|N|N||||
+93185|||||||||N|N||No Load|Sans frais|N|N||||
+93189|||||||||N|N||No Load|Sans frais|N|N||||
+93249|||||||||N|N||No Load|Sans frais|N|N||||
+93252|||||||||N|N||Choice of Front or Back|Choix entre FE et FD|N|N||||
+93407|||||||||N|N||No Load|Sans frais|N|N||||
+93689|||||||||N|N||Back Fee Only|Frais différés uniquement|N|N||||
+93692|||||||||N|N||Back Fee Only|Frais différés uniquement|N|N||||

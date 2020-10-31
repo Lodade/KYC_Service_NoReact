@@ -3,16 +3,9 @@ function queryConnector(){
     let symbolInput = document.getElementById("symbolInput");
     if(queryForm.getAttribute('hasListener') == null){
         queryForm.addEventListener("submit", async function (e){
-            let mgmtCode;
-            let fundID;
-            let input;
             if(symbolInput.value != ""){
-                input = symbolInput.value;
-                mgmtCode = symbolInput.value.substring(0, 3);
-                fundID = symbolInput.value.substring(3, symbolInput.value.length);
                 e.preventDefault();
-                let result = await queryProcess("SELECT * FROM fsrv_prod WHERE (MGMT_CODE='" + mgmtCode + "') AND (FUND_ID='" +
-                fundID + "')");
+                let result = await queryProcess("SELECT * FROM fsrv_prod WHERE concat(MGMT_CODE, FUND_ID) = '" + symbolInput.value + "'");
                 if(result[0] != null){
                     openResultsPage(result);
                 }else{
