@@ -38,6 +38,10 @@ async function flatFileTest() {
         " FRENCH_PROSPECTUS_RISK_RATING, ENGLISH_PROSPECTUS_RISK, FRENCH_PROSPECTUS_RISK, VALUATION_FREQUENCY," +
         " DISTRIBUTION_FREQUENCY, MONEY_FUND, ENGLISH_CONCISE_FUND_OBJECTIVE, FRENCH_CONCISE_FUND_OBJECTIVE," +
         " TIME_HORIZON) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("Fundserv-Full-20200910.txt", [0], pool,
+        "INSERT INTO fundata_fundserv_full(FUNDATA_KEY, FUNDSERV_CODE, LOAD_TYPE, SERVICE_FEE_RATE, SERVICE_FEE_FREQUENCY)" +
+        " VALUES (?,?,?,?,?)");
 }
 if (process.argv[2] == "run") {
     flatFileTest();
@@ -96,7 +100,7 @@ async function flatFileReader(filename, columnsToFormat, pool, sql) {
     fs.readFile(__dirname + "/uploads/" + filename, 'utf8', async function (err, data) {
         let lock = false;
         lock = await flatFileInterpreter(data, columnsToFormat, pool, sql);
-        if(lock){
+        if (lock) {
             pool.end();
         }
     });
