@@ -42,6 +42,24 @@ async function flatFileTest() {
     await flatFileReader("Fundserv-Full-20200910.txt", [0], pool,
         "INSERT INTO fundata_fundserv_full(FUNDATA_KEY, FUNDSERV_CODE, LOAD_TYPE, SERVICE_FEE_RATE, SERVICE_FEE_FREQUENCY)" +
         " VALUES (?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("Allocation-Full-20200910.txt", [0, 2], pool,
+        "INSERT INTO fundata_allocation_full(FUNDATA_KEY, AS_OF_DATE, PERCENT, DESCRIPTION, TYPE_DESCRIPTION)" +
+        " VALUES (?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("DistributionDetails-Full-20200910.txt", [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+        17, 18, 19], pool, "INSERT INTO fundata_distribution_details_full(FUNDATA_KEY, AS_OF_DATE, TOTAL_DIST_CURR_MTH," +
+        " TOTAL_DIST_YTD, TOTAL_DIST_12MTH, DIST_YIELD, DIV_DIST_CURR_MTH, DIV_DIST_YTD, DIV_DIST_12MTH, FGN_DIV_DIST_CURR_MTH," +
+        " FGN_DIV_DIST_YTD, FGN_DIV_DIST_12MTH, CAP_GAINS_DIST_CURR_MTH, CAP_GAINS_DIST_YTD, CAP_GAINS_DIST_12MTH," +
+        " INT_INC_DIST_CURR_MTH, INT_INC_DIST_YTD, INT_INT_DIST_12MTH, RTN_PRINCIPLE_CURR_MTH, RTN_PRINCIPLE_YTD," +
+    " RTN_PRINCIPLE_12MTH, DIST_FREQ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("Fees-Full-20200910.txt", [0, 1, 2, 5, 6, 11, 16, 17], pool,
+        "INSERT INTO fundata_fees_full(FUNDATA_KEY, RRSP_ANNUAL_ADMIN_FEES, RRIF_ANNUAL_ADMIN_FEES, ENGLISH_SWITCH_FEES," +
+        " FRENCH_SWITCH_FEES, RRSP_WITHDRAWAL_FEES, RRIF_WITHDRAWAL_FEES, ENGLISH_TRAILER_FEES, FRENCH_TRAILER_FEES," + 
+        " PAC_PLAN, SWP_PLAN, SWP_MIN_BALANCE, ENGLISH_LOAD, FRENCH_LOAD, NO_LOAD_FUND, CHOICE_OF_FRONT_OR_BACK_FEE," +
+        " MAX_FRONT_END_PERCENT, MAX_BACK_END_PERCENT, ENGLISH_BACK_END_FEE_APP_TO, FRENCH_BACK_END_FEE_APP_TO)" +
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 }
 if (process.argv[2] == "run") {
     flatFileTest();
@@ -82,8 +100,8 @@ async function flatFileInterpreter(data, columnsToFormat, pool, sql) {
                 if (columnsToFormat.indexOf(i) > -1 && subdividedRowsArray[k - 1][i] != null) {
                     subdividedRowsArray[k - 1][i] = parseFloat(subdividedRowsArray[k - 1][i]);
                 }
-                if (subdividedRowsArray[k - 1][i] != null && subdividedRowsArray[k - 1][i].length > longestInColumn[i]) {
-                    longestInColumn[i] = subdividedRowsArray[k - 1][i].length;
+                if (subdividedRowsArray[k - 1][i] != null && subdividedRowsArray[k - 1][i].toString().length > longestInColumn[i]) {
+                    longestInColumn[i] = subdividedRowsArray[k - 1][i].toString().length;
                 }
             }
         }
@@ -811,7 +829,8 @@ async function bulkInsert(pool, bulkContent, sql) {
         if (con) {
             con.rollback();
         }
-        console.log(bulkContent[540]);
+        console.log(bulkContent[0]);
+        console.log(bulkContent[1]);
         throw batchError;
     } finally {
         if (con) {
