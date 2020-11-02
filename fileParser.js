@@ -56,10 +56,56 @@ async function flatFileTest() {
     pool = await createMariadbConnectionPool();
     await flatFileReader("Fees-Full-20200910.txt", [0, 1, 2, 5, 6, 11, 16, 17], pool,
         "INSERT INTO fundata_fees_full(FUNDATA_KEY, RRSP_ANNUAL_ADMIN_FEES, RRIF_ANNUAL_ADMIN_FEES, ENGLISH_SWITCH_FEES," +
-        " FRENCH_SWITCH_FEES, RRSP_WITHDRAWAL_FEES, RRIF_WITHDRAWAL_FEES, ENGLISH_TRAILER_FEES, FRENCH_TRAILER_FEES," + 
+        " FRENCH_SWITCH_FEES, RRSP_WITHDRAWAL_FEES, RRIF_WITHDRAWAL_FEES, ENGLISH_TRAILER_FEES, FRENCH_TRAILER_FEES," +
         " PAC_PLAN, SWP_PLAN, SWP_MIN_BALANCE, ENGLISH_LOAD, FRENCH_LOAD, NO_LOAD_FUND, CHOICE_OF_FRONT_OR_BACK_FEE," +
         " MAX_FRONT_END_PERCENT, MAX_BACK_END_PERCENT, ENGLISH_BACK_END_FEE_APP_TO, FRENCH_BACK_END_FEE_APP_TO)" +
         " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("FundBenchmarks-Full-20200910.txt", [0, 3], pool,
+        "INSERT INTO fundata_fundbenchmarks_full(FUNDATA_KEY, ENGLISH_FUND_NAME_50, FRENCH_FUND_NAME_50, ASSOCIATED_BENCHMARK_ID," +
+        " ENGLISH_FUND_TYPE_NAME) VALUES (?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("FundCompany-Full-20200910.txt", [0], pool,
+        "INSERT INTO fundata_fundcompanies_full(FUNDATA_KEY, ENGLISH_MSTR_GRP_NAME, FRENCH_MSTR_GRP_NAME, ENGLISH_GRP_NAME," +
+        " FRENCH_GRP_NAME, ADDRESS, TELEPHONE, WEBSITE, IFIC_MEMBER_STATUS) VALUES (?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("Manager-Full-20200910.txt", [0], pool,
+        "INSERT INTO fundata_managers_full(FUNDATA_KEY, MANAGER_NAME, MANAGER_TITLE, ENGLISH_MANAGER_BIO, FRENCH_MANAGER_BIO," +
+        " START_DATE, EXPERIENCE, COMPANY) VALUES (?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("MonthlyPricing-Full-20200910.txt", [0, 2, 3, 4, 5, 6, 7, 8, 9], pool,
+        "INSERT INTO fundata_monthlypricing_full(FUNDATA_KEY, AS_OF_DATE, NAVPS, MER, TOTAL_ASSETS, DIVIDEND_INCOME," +
+        " CAPITAL_GAINS, RETURN_OF_CAPITAL, DISTRIBUTION_TOTAL, SPLIT_FACTOR, DISTRIBUTION_FREQUENCY)" +
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("Performance-Full-20200910.txt", [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], pool,
+        "INSERT INTO fundata_performance_full(FUNDATA_KEY, AS_OF_DATE, 1MTH_RETURN, 3MTH_RETURN, 6MTH_RETRUN, YTD_RETURN," +
+        " 1YR_SIMPLE_RETURN, 3YR_SIMPLE_RETURN, 5YR_SIMPLE_RETURN, 10YR_SIMPLE_RETURN, 1YR_COMPOUND_RETURN, 3YR_COMPOUND_RETURN," +
+        " 5YR_COMPOUND_RETURN, 10YR_COMPOUND_RETURN, INCEPTION_RETURN, TOTAL_DIST, DIST_YIELD) VALUES" +
+        " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("PortfolioDetails-Full-20200910.txt", [0, 5, 6, 7, 8, 9, 11], pool,
+        "INSERT INTO fundata_portfoliodetails_full(FUNDATA_KEY, DATE, STYLE_BIAS, MKT_CAP_BIAS, MOD_DURATION_DATE," +
+        " MOD_DURATION, AVG_MATURITY, SHORT_TERM_BOND, MID_TERM_BOND, LONG_TERM_BOND, AS_OF_DATE, CREDIT_RATING)" +
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("RiskReturn-Full-20200910.txt", [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], pool,
+        "INSERT INTO fundata_riskreturn_full(FUNDATA_KEY, AS_OF_DATE, YEAR, BENCHMARK_ID, ALPHA, BETA, SHARPE, TREYNOR," +
+        " RSQUARED, SORTINO, STDDEV, VOLATILITY, BENCHMARK_CORRELATION) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("ServiceCompany-Full-20200910.txt", [0], pool,
+        "INSERT INTO fundata_servicecompanies_full(FUNDATA_KEY, SERVICE_COMPANY_TYPE, COMPANY_NAME, ADDRESS) VALUES (?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("TopHoldings-Full-20200910.txt", [0, 2, 3, 6], pool,
+        "INSERT INTO fundata_topholdings_full(FUNDATA_KEY, DATE, RANK_ORDER, SECURITY_ID, SECURITY_NAME," +
+        " SECURITY_NAME_FRENCH, MARKET_PERCENT) VALUES (?,?,?,?,?,?,?)");
+    pool = await createMariadbConnectionPool();
+    await flatFileReader("YearPerformance-Full-20200910.txt", [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], pool,
+        "INSERT INTO fundata_yearperformance_full(FUNDATA_KEY, AS_OF_DATE, YEAR, SIMPLE_RETURN, SIMPLE_RANK," +
+        " SIMPLE_RANK_COUNT, SIMPLE_QUARTILE, COMPOUND_RETURN, COMPOUND_RANK, COMPOUND_RANK_COUNT, COMPOUND_QUARTILE," +
+        " CALENDAR_SIMPLE_RTN, CALENDAR_SIMPLE_RANK, CALENDAR_SIMPLE_RANK_COUNT, CALENDAR_SIMPLE_QUARTILE," +
+        " CALENDAR_COMPOUND_RTN, CALENDAR_COMPOUND_RANK, CALENDAR_COMPOUND_RANK_COUNT, CALENDAR_COMPOUND_QUARTILE)" +
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 }
 if (process.argv[2] == "run") {
     flatFileTest();
@@ -86,6 +132,7 @@ async function flatFileInterpreter(data, columnsToFormat, pool, sql) {
     let firstLine = rowsArray[0].split("|");
     let subdividedRowsArray = [];
     let longestInColumn = [];
+    let longestItemInColumn = [];
     let easyView = [];
     for (let i = 0; i < rowLength; i++) {
         longestInColumn[i] = 0;
@@ -102,14 +149,15 @@ async function flatFileInterpreter(data, columnsToFormat, pool, sql) {
                 }
                 if (subdividedRowsArray[k - 1][i] != null && subdividedRowsArray[k - 1][i].toString().length > longestInColumn[i]) {
                     longestInColumn[i] = subdividedRowsArray[k - 1][i].toString().length;
+                    longestItemInColumn[i] = subdividedRowsArray[k - 1][i];
                 }
             }
         }
     }
     for (let i = 0; i < rowLength; i++) {
-        easyView[i] = firstLine[i] + " " + longestInColumn[i] + " " + subdividedRowsArray[0][i];
+        easyView[i] = firstLine[i] + " " + longestInColumn[i] + " " + longestItemInColumn[i];
     }
-    //console.log(easyView);
+    console.log(easyView);
     //console.log(subdividedRowsArray);
     await tableInserter(pool, subdividedRowsArray, sql);
     return true;
@@ -829,8 +877,6 @@ async function bulkInsert(pool, bulkContent, sql) {
         if (con) {
             con.rollback();
         }
-        console.log(bulkContent[0]);
-        console.log(bulkContent[1]);
         throw batchError;
     } finally {
         if (con) {
