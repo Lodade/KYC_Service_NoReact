@@ -13,8 +13,8 @@
         <a>Manage</a>
     </div>
     <div class="sideNavBar"> 
-        <a>Dashboard</a>
-        <a onclick="pageManager.changePage(2,2)">View Product</a>
+        <a onclick="(async () => {await pageManager.changePage(2,1);})()">Dashboard</a>
+        <a onclick="(async () => {await pageManager.changePage(2,2);})()">View Product</a>
         <a>View Related</a>
         <a>View Similar</a>
         <a>Find By Criteria</a>
@@ -28,12 +28,47 @@
                 <input type="submit" value="Search">
             </form>
         </div>
-        <div id="resultsAreaHeader">
+        <div id="explore_dashboard">
+            <button type="button" class="dashboardButton">Fundserv</button>
+            <button type="button" class="dashboardButton">Fundata</button><br>
+            <button type="button" class="dashboardButton">Mgmt Co.</button>
+            <button type="button" class="dashboardButton">Prod. Type</button>
+            <button type="button" class="dashboardButton">Load Type</button>
+            <button type="button" class="dashboardButton">Classification</button>
+            <button type="button" class="dashboardButton">Risk</button><br>
+            <p><b>Management Company Dashboard</b></p>
+            <form>
+                <label for="prodType">Prod. Type:</label>
+                <select id="prodType" name="prodType" size="1">
+                    <option value="All">All</option>
+                </select>
+                <label for="loadType">Load Type:</label>
+                <select id="loadType" name="loadType" size="1">
+                    <option value="All">All</option>
+                </select>
+                <label for="classification">Classification</label>
+                <select id="classification" name="classification" size="1">
+                    <option value="All">All</option>
+                </select>
+                <label for="risk">Risk</label>
+                <select id="risk" name="risk" size="1">
+                    <option value="All">All</option>
+                </select>
+                <label for="feePlan">Fee Plan</label>
+                <select id="feePlan" name="feePlan" size="1">
+                    <option value="All">All</option>
+                </select>
+            </form><br>
+            <div id="fundCountsArea">
+                <table id="fundCountsTable">
+
+                </table>
+            </div>
+        </div>
+        <div id="resultsArea">
             <p><a>Product Search</a> > <a>Results</a></p>
             <p id="resultsFirstRow"></p>
             <p id="resultsSecondRow"></p>
-        </div>
-        <div id="resultsAreaDetails">
             <table id="resultsTable">
                 <tr>
                     <th>Product Detail</th>
@@ -241,7 +276,7 @@
                 </tr>
                 <tr>
                     <td><b>Minimums:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('minimums','hiddenMinimums')">Toggle Section</button></td>
+                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('minimums','hiddenMinimums');})()">Toggle Section</button></td>
                 </tr>
                 <tr class="hiddenMinimums minimums">
                     <td>Minimum Initial Investment</td>
@@ -273,7 +308,7 @@
                 </tr>
                 <tr>
                     <td><b>Eligible Provinces:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('provinces','hiddenProvinces')">Toggle Section</button> <span id="provincesStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('provinces','hiddenProvinces');})()">Toggle Section</button> <span id="provincesStatusButton" class="statusButton"></span></td>
                 </tr>
                 <tr class="hiddenProvinces provinces">
                     <td>Alberta</td>
@@ -329,7 +364,7 @@
                 </tr>
                 <tr>
                     <td><b>Eligible Transactions:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('transactions','hiddenTransactions')">Toggle Section</button> <span id="transactionsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('transactions','hiddenTransactions');})()">Toggle Section</button> <span id="transactionsStatusButton" class="statusButton"></span></td>
                 </tr>
                 <tr class="hiddenTransactions transactions">
                     <td>Buy</td>
@@ -397,7 +432,7 @@
                 </tr>
                 <tr>
                     <td><b>Accounts - Client Name:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('cnaccounts','hiddenCnaccounts')">Toggle Section</button> <span id="cnaccountsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('cnaccounts','hiddenCnaccounts');})()">Toggle Section</button> <span id="cnaccountsStatusButton" class="statusButton"></span></td>
                 </tr>
                 <tr class="hiddenCnaccounts cnaccounts">
                     <td>01</td>
@@ -477,7 +512,7 @@
                 </tr>
                 <tr>
                     <td><b>Accounts - Nom/Inter:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('niaccounts','hiddenNiaccounts')">Toggle Section</button> <span id="niaccountsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('niaccounts','hiddenNiaccounts');})()">Toggle Section</button> <span id="niaccountsStatusButton" class="statusButton"></span></td>
                 </tr>
                 <tr class="hiddenNiaccounts niaccounts">
                     <td>01</td>
@@ -557,7 +592,7 @@
                 </tr>
                 <tr>
                     <td><b>Dividend Options:</b></td>
-                    <td><button type="button" class="expandButton" onclick="toggleDetails('dividends','hiddenDividends')">Toggle Section</button></td>
+                    <td><button type="button" class="expandButton" onclick="( async () => {await toggleDetails('dividends','hiddenDividends');})()">Toggle Section</button></td>
                 </tr>
                 <tr class="hiddenDividends dividends">
                     <td>Dividend Frequency</td>
@@ -591,4 +626,5 @@
 <script src="frontend/javaScript/queryManager.js"></script>
 <script src="frontend/javaScript/resultsManager.js"></script>
 <script src="frontend/javaScript/detailsVisibilityControl.js"></script>
+<script src="frontend/javaScript/dashboardController.js"></script>
 </html>

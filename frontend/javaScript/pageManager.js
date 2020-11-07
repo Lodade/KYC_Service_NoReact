@@ -1,36 +1,41 @@
-function pageManagement(){
+var pageManager;
+async function pageManagement(){
     let explore_viewProduct;
+    let explore_dashboard;
     let manage;
     let displayArea;
-    let resultsAreaHeader;
-    let resultsAreaDetails;
+    let resultsArea;
     function removeAllChildNodes(parent){
         while(parent.firstChild){
             parent.removeChild(parent.firstChild);
         }
     }
     return {
-        pageGather: function(){
+        pageGather: async function(){
+            explore_dashboard = document.getElementById("explore_dashboard");
             explore_viewProduct = document.getElementById("explore_viewProduct");
             manage = document.getElementById("manage");
-            resultsAreaHeader = document.getElementById("resultsAreaHeader");
-            resultsAreaDetails = document.getElementById("resultsAreaDetails");
+            resultsArea = document.getElementById("resultsArea");
             displayArea = document.getElementById("displayArea");
             removeAllChildNodes(displayArea);            
         },
-        changePage: function(mainSection, subSection, resultsSubSection){
+        changePage: async function(mainSection, subSection, resultsSubSection){
             if(mainSection == 1){
 
             }else if(mainSection == 2){
+                if(subSection == 1){
+                    removeAllChildNodes(displayArea);
+                    displayArea.appendChild(explore_dashboard);
+                    await dashboardController();
+                }
                 if(subSection == 2){
                     removeAllChildNodes(displayArea);
                     displayArea.appendChild(explore_viewProduct);
-                    queryConnector();
+                    await queryConnector();
                 }
                 if(resultsSubSection == 1){
                     removeAllChildNodes(displayArea);
-                    displayArea.appendChild(resultsAreaHeader);
-                    displayArea.appendChild(resultsAreaDetails);
+                    displayArea.appendChild(resultsArea);
                 }
             }else if(mainSection == 3){
 
@@ -40,5 +45,7 @@ function pageManagement(){
         }
     };
 }
-var pageManager = pageManagement();
-pageManager.pageGather();
+(async function () {
+    pageManager = await pageManagement();
+    await pageManager.pageGather();
+})();

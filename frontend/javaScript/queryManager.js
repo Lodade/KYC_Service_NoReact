@@ -1,4 +1,4 @@
-function queryConnector(){
+async function queryConnector(){
     let queryForm = document.getElementById("queryForm");
     let symbolInput = document.getElementById("symbolInput");
     if(queryForm.getAttribute('hasListener') == null){
@@ -7,7 +7,7 @@ function queryConnector(){
                 e.preventDefault();
                 let result = await queryProcess("SELECT * FROM fsrv_prod WHERE concat(MGMT_CODE, FUND_ID) = '" + symbolInput.value + "'");
                 if(result[0] != null){
-                    openResultsPage(result);
+                    await openResultsPage(result);
                 }else{
                     console.log("No product exists by that name");
                 }
@@ -19,9 +19,9 @@ function queryConnector(){
         queryForm.setAttribute('hasListener', true);
     }
 }
-function openResultsPage(result){
-    pageManager.changePage(2,0,1);
-    resultsBuilder(result[0]);
+async function openResultsPage(result){
+    await pageManager.changePage(2,0,1);
+    await resultsBuilder(result[0]);
 }
 async function queryProcess(query){
     let response = await fetch("/query", {

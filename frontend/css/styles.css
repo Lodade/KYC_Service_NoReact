@@ -1,14 +1,22 @@
 * {
 	font-family: Sans-serif;
 }
+
+:root {
+	--displayAreaHeight: 93.7vh;
+	--displayAreaWidthAt1250px: 91vw;
+}
+
 #uploadForm {
 	text-align: center;
 	position: relative;
 	font-size: 1.2em;
 }
+
 #explore_viewProduct {
 	margin-left: 2vw;
 }
+
 .topNavBar {
 	position: absolute;
 	top: 0vh;
@@ -19,39 +27,49 @@
 	min-height: 6.3vh;
 	max-height: 6.3vh;
 }
+
 .topNavBar a {
 	float: left;
 	padding: 2vh 3vw;
 	font-size: 1.2em;
 }
+
 .sideNavBar a {
 	float: left;
 	padding: 1vh 1vw;
 	font-size: 1.2em;
 }
-.hiddenMinimums{
+
+.hiddenMinimums {
 	display: none;
 }
-.hiddenProvinces{
+
+.hiddenProvinces {
 	display: none;
 }
-.hiddenTransactions{
+
+.hiddenTransactions {
 	display: none;
 }
-.hiddenCnaccounts{
+
+.hiddenCnaccounts {
 	display: none;
 }
-.hiddenNiaccounts{
+
+.hiddenNiaccounts {
 	display: none;
 }
-.hiddenDividends{
+
+.hiddenDividends {
 	display: none;
 }
-.expandButton{
+
+.expandButton {
 	display: inline-block;
 	vertical-align: middle;
 }
-.statusButton{
+
+.statusButton {
 	border-radius: 50%;
 	width: 25px;
 	height: 25px;
@@ -59,21 +77,30 @@
 	vertical-align: middle;
 	border: 1px solid black;
 }
-.greenStatusBackground{
+
+.greenStatusBackground {
 	background-color: green;
 }
-.yellowStatusBackground{
+
+.yellowStatusBackground {
 	background-color: yellow;
 }
-.redStatusBackground{
+
+.redStatusBackground {
 	background-color: red;
 }
-@media screen and (max-width: 600px){
+
+.dashboardButton {
+	width: 7vw;
+	margin-bottom: 2vh;
+}
+
+@media screen and (max-width: 600px) {
 	.sideNavBar {
 		position: absolute;
 		top: 6.3vh;
 		left: 0vw;
-		height: 93.7vh;
+		height: var(--displayAreaHeight);
 		width: 28vw;
 		border-right-style: solid;
 		border-width: 1px;
@@ -83,16 +110,17 @@
 		position: absolute;
 		top: 6.3vh;
 		left: 28vw;
-		height: 93.7vh;
+		height: var(--displayAreaHeight);
 		width: 72vw;
 	}
 }
-@media screen and (min-width: 600px){
+
+@media screen and (min-width: 600px) {
 	.sideNavBar {
 		position: absolute;
 		top: 6.3vh;
 		left: 0vw;
-		height: 93.7vh;
+		height: var(--displayAreaHeight);
 		width: 18vw;
 		border-right-style: solid;
 		border-width: 1px;
@@ -102,16 +130,17 @@
 		position: absolute;
 		top: 6.3vh;
 		left: 18vw;
-		height: 93.7vh;
+		height: var(--displayAreaHeight);
 		width: 82vw;
 	}
 }
-@media screen and (min-width: 1250px){
+
+@media screen and (min-width: 1250px) {
 	.sideNavBar {
 		position: absolute;
 		top: 6.3vh;
 		left: 0vw;
-		height: 93.7vh;
+		height: var(--displayAreaHeight);
 		width: 9vw;
 		border-right-style: solid;
 		border-width: 1px;
@@ -121,33 +150,24 @@
 		position: absolute;
 		top: 6.3vh;
 		left: 9vw;
-		height: 93.7vh;
-		width: 91vw;
+		height: var(--displayAreaHeight);
+		width: var(--displayAreaWidthAt1250px);
 	}
-	#resultsAreaHeader{
+	#resultsArea {
 		position: absolute;
 		top: 0vh;
 		left: 0vw;
-		height: 23vh;
-		width: 91vw;
-	}
-	#resultsAreaHeader p{
+		height: var(--displayAreaHeight);
+		width: var(--displayAreaWidthAt1250px);
+		overflow: auto;
 		margin-left: 2vw;
 	}
-	#resultsAreaDetails{
-		position: absolute;
-		top: 23vh;
-		left: 0vw;
-		height: 70.7vh;
-		width: 91vw;
-		overflow: auto;
-	}
-	#resultsTable{
+	#resultsTable {
 		border-collapse: collapse;
 		margin-left: 2vw;
 		margin-bottom: 2vh;
 	}
-	#resultsTable th{
+	#resultsTable th {
 		position: sticky;
 		top: 0;
 		padding: 1vh 1vw;
@@ -155,25 +175,55 @@
 		text-align: left;
 		max-width: 20%;
 	}
-	#resultsTable td{
+	#resultsTable td {
 		border: 1px solid black;
 		padding: 1vh 1vw;
 		text-align: left;
 		max-width: 20%;
 	}
+	#explore_dashboard {
+		margin-left: 2vw;
+		margin-top: 2vh;
+	}
+	#fundCountsArea {
+		overflow: auto;
+		width: var(--displayAreaWidthAt1250px);
+		height: 25vh;
+	}
+	#fundCountsTable {
+		border-collapse: collapse;
+	}
+	#fundCountsTable th {
+		position: sticky;
+		top: 0;
+		padding: 1vh 1vw;
+		background-color: gray;
+		text-align: left;
+		max-width: 20%;
+	}
+	#fundCountsTable td {
+		border: 1px solid black;
+		padding: 1vh 1vw;
+		text-align: left;
+		width: 20%;
+	}
 }
+
 a:link {
 	text-decoration: none;
 	color: black;
 }
+
 a:visited {
 	text-decoration: none;
 	color: black;
 }
+
 a:hover {
 	text-decoration: underline;
 	color: black;
 }
+
 a:active {
 	text-decoration: underline;
 	color: black;
