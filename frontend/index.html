@@ -31,11 +31,11 @@
         <div id="explore_dashboard">
             <button type="button" class="dashboardButton">Fundserv</button>
             <button type="button" class="dashboardButton">Fundata</button><br>
-            <button type="button" class="dashboardButton">Mgmt Co.</button>
-            <button type="button" class="dashboardButton">Prod. Type</button>
-            <button type="button" class="dashboardButton">Load Type</button>
-            <button type="button" class="dashboardButton">Classification</button>
-            <button type="button" class="dashboardButton">Risk</button><br>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('mgmtCo');})()">Mgmt Co.</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('prodType');})()">Prod. Type</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('loadType');})()">Load Type</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('classification');})()">Classification</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('risk');})()">Risk</button><br>
             <p><b>Management Company Dashboard</b></p>
             <form>
                 <label for="prodType">Prod. Type:</label>
@@ -60,7 +60,12 @@
                 </select>
             </form><br>
             <div id="fundCountsArea">
-                <table id="fundCountsTable">
+                <table class="dashboardTable" id="fundCountsTable">
+
+                </table>
+            </div><br>
+            <div id="fundDisplayArea">
+                <table class="dashboardTable" id="fundDisplayTable">
 
                 </table>
             </div>

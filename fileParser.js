@@ -108,7 +108,7 @@ async function flatFileTest() {
         " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 }
 if (process.argv[2] == "run") {
-    flatFileTest();
+    fundlistTest();
 }
 async function tableInserter(pool, rowContent, sql) {
     let bulkContent = [];
@@ -227,7 +227,7 @@ async function fsrv_prodParser(err, data, pool) {
             curProdArray[11] = selectedProduct.Properties[0].Currency[0];
             curProdArray[12] = selectedProduct.Properties[0].LoadType[0];
             if (selectedProduct.Properties[0].Classification) {
-                curProdArray[13] = parseFloat(selectedProduct.Properties[0].Classification[0]);
+                curProdArray[13] = selectedProduct.Properties[0].Classification[0];
             } else {
                 curProdArray[13] = null;
             }

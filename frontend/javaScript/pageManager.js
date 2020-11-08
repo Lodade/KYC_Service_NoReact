@@ -5,11 +5,6 @@ async function pageManagement(){
     let manage;
     let displayArea;
     let resultsArea;
-    function removeAllChildNodes(parent){
-        while(parent.firstChild){
-            parent.removeChild(parent.firstChild);
-        }
-    }
     return {
         pageGather: async function(){
             explore_dashboard = document.getElementById("explore_dashboard");
@@ -17,24 +12,24 @@ async function pageManagement(){
             manage = document.getElementById("manage");
             resultsArea = document.getElementById("resultsArea");
             displayArea = document.getElementById("displayArea");
-            removeAllChildNodes(displayArea);            
+            await removeAllChildNodes(displayArea);            
         },
         changePage: async function(mainSection, subSection, resultsSubSection){
             if(mainSection == 1){
 
             }else if(mainSection == 2){
                 if(subSection == 1){
-                    removeAllChildNodes(displayArea);
+                    await removeAllChildNodes(displayArea);
                     displayArea.appendChild(explore_dashboard);
-                    await dashboardController();
+                    await dashboardController("mgmtCo");
                 }
                 if(subSection == 2){
-                    removeAllChildNodes(displayArea);
+                    await removeAllChildNodes(displayArea);
                     displayArea.appendChild(explore_viewProduct);
                     await queryConnector();
                 }
                 if(resultsSubSection == 1){
-                    removeAllChildNodes(displayArea);
+                    await removeAllChildNodes(displayArea);
                     displayArea.appendChild(resultsArea);
                 }
             }else if(mainSection == 3){
@@ -44,6 +39,11 @@ async function pageManagement(){
             }
         }
     };
+}
+async function removeAllChildNodes(parent){
+    while(parent.firstChild){
+        parent.removeChild(parent.firstChild);
+    }
 }
 (async function () {
     pageManager = await pageManagement();
