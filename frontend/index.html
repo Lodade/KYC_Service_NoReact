@@ -31,32 +31,28 @@
         <div id="explore_dashboard">
             <button type="button" class="dashboardButton">Fundserv</button>
             <button type="button" class="dashboardButton">Fundata</button><br>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('mgmtCo');})()">Mgmt Co.</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('prodType');})()">Prod. Type</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('loadType');})()">Load Type</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('classification');})()">Classification</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('risk');})()">Risk</button><br>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('mgmtCo', false);})()">Mgmt Co.</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('prodType', false);})()">Prod. Type</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('loadType', false);})()">Load Type</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('classification', false);})()">Classification</button>
+            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('risk', false);})()">Risk</button><br>
             <p><b>Management Company Dashboard</b></p>
             <form>
-                <label for="prodType">Prod. Type:</label>
-                <select id="prodType" name="prodType" size="1">
-                    <option value="All">All</option>
+                <label for="PROD_TYPE">Prod. Type:</label>
+                <select id="prodTypeChooser" name="PROD_TYPE" size="1">
+                    <option value="">All</option>
                 </select>
-                <label for="loadType">Load Type:</label>
-                <select id="loadType" name="loadType" size="1">
-                    <option value="All">All</option>
+                <label for="LOAD_TYPE">Load Type:</label>
+                <select id="loadTypeChooser" name="LOAD_TYPE" size="1">
+                    <option value="">All</option>
                 </select>
-                <label for="classification">Classification</label>
-                <select id="classification" name="classification" size="1">
-                    <option value="All">All</option>
+                <label for="CLASSIFICATION">Classification</label>
+                <select id="classificationChooser" name="CLASSIFICATION" size="1">
+                    <option value="">All</option>
                 </select>
-                <label for="risk">Risk</label>
-                <select id="risk" name="risk" size="1">
-                    <option value="All">All</option>
-                </select>
-                <label for="feePlan">Fee Plan</label>
-                <select id="feePlan" name="feePlan" size="1">
-                    <option value="All">All</option>
+                <label for="RISK_CLASS">Risk</label>
+                <select id="riskChooser" name="RISK_CLASS" size="1">
+                    <option value="">All</option>
                 </select>
             </form><br>
             <div id="fundCountsArea">
@@ -133,15 +129,15 @@
                 </tr>
                 <tr>
                     <td>Product Type</td>
-                    <td id="PROD_TYPE"></td>
+                    <td id="FULL_PROD_TYPE"></td>
                 </tr>
                 <tr>
                     <td>Currency</td>
-                    <td id="CURR"></td>
+                    <td id="FULL_CURRENCY"></td>
                 </tr>
                 <tr>
                     <td>Load Type</td>
-                    <td id="LOAD_TYPE"></td>
+                    <td id="FULL_LOAD_TYPE"></td>
                 </tr>
                 <tr>
                     <td>Fund Classification (CIFSC)</td>
