@@ -90,10 +90,10 @@ async function dashboardController(buttonType, refiltering) {
         switch (buttonType) {
             case "mgmtCo":
                 filterPart = await queryFilterAssembler(choices, filters, false);
-                if(filterPart.substring(0,6) == " WHERE"){
+                if (filterPart.substring(0, 6) == " WHERE") {
                     copy = " AND" + filterPart.substring(6, filterPart.length);
                 }
-                copy = copy.replace(/\sf\W/g," f2.");
+                copy = copy.replace(/\sf\W/g, " f2.");
                 query = "SELECT DISTINCT(MGMT_CODE)," +
                     " (SELECT COUNT(*) FROM fsrv_prod f2 WHERE f2.MGMT_CODE=f.MGMT_CODE" + copy + ") FUND_COUNT," +
                     " (SELECT COUNT(DISTINCT(f2.FUND_LINK_ID)) from fsrv_prod f2 WHERE f2.MGMT_CODE=f.MGMT_CODE" + copy + ") DISTINCT_FUND_COUNT" +
@@ -103,7 +103,7 @@ async function dashboardController(buttonType, refiltering) {
             case "prodType":
                 filterPart = await queryFilterAssembler(choices, filters, true);
                 copy = filterPart;
-                copy = copy.replace(/\sf\W/g," f2.");
+                copy = copy.replace(/\sf\W/g, " f2.");
                 query = "SELECT DISTINCT(f.PROD_TYPE)," +
                     " fe.FULL_PROD_TYPE," +
                     " (SELECT COUNT(*) FROM fsrv_prod f2 WHERE f2.PROD_TYPE=f.PROD_TYPE" + copy + ") FUND_COUNT," +
@@ -115,7 +115,7 @@ async function dashboardController(buttonType, refiltering) {
             case "loadType":
                 filterPart = await queryFilterAssembler(choices, filters, true);
                 copy = filterPart;
-                copy = copy.replace(/\sf\W/g," f2.");
+                copy = copy.replace(/\sf\W/g, " f2.");
                 query = "SELECT DISTINCT(f.LOAD_TYPE)," +
                     " fe.FULL_LOAD_TYPE," +
                     " (SELECT COUNT(*) FROM fsrv_prod f2 WHERE f2.LOAD_TYPE=f.LOAD_TYPE" + copy + ") FUND_COUNT," +
@@ -127,7 +127,7 @@ async function dashboardController(buttonType, refiltering) {
             case "classification":
                 filterPart = await queryFilterAssembler(choices, filters, true);
                 copy = filterPart;
-                copy = copy.replace(/\sf\W/g," f2.");
+                copy = copy.replace(/\sf\W/g, " f2.");
                 query = "SELECT DISTINCT(f.CLASSIFICATION)," +
                     " fe.FULL_CLASSIFICATION," +
                     " (SELECT COUNT(*) FROM fsrv_prod f2 WHERE f2.CLASSIFICATION=f.CLASSIFICATION" + copy + ") FUND_COUNT," +
@@ -138,10 +138,10 @@ async function dashboardController(buttonType, refiltering) {
                 break;
             case "risk":
                 filterPart = await queryFilterAssembler(choices, filters, false);
-                if(filterPart.substring(0,6) == " WHERE"){
+                if (filterPart.substring(0, 6) == " WHERE") {
                     copy = " AND" + filterPart.substring(6, filterPart.length);
                 }
-                copy = copy.replace(/\sf\W/g," f2.");
+                copy = copy.replace(/\sf\W/g, " f2.");
                 query = "SELECT DISTINCT(RISK_CLASS)," +
                     " (SELECT COUNT(*) FROM fsrv_prod f2 WHERE f2.RISK_CLASS=f.RISK_CLASS" + copy + ") FUND_COUNT," +
                     " (SELECT COUNT(DISTINCT(f2.FUND_LINK_ID)) from fsrv_prod f2 WHERE f2.RISK_CLASS=f.RISK_CLASS" + copy + ") DISTINCT_FUND_COUNT" +
@@ -153,31 +153,33 @@ async function dashboardController(buttonType, refiltering) {
         let result = await queryProcess(query);
         await countsTablePopulator(result, headers, filterPart);
     }
+    async function headerPopulator(headers, location) {
+        let currentRow = document.createElement("tr");
+        let currentHeader;
+        for (let i = 0; i < headers.length; i++) {
+            currentHeader = document.createElement("th");
+            currentHeader.innerHTML = headers[i];
+            currentRow.append(currentHeader);
+        }
+        location.append(currentRow);
+    }
     async function countsTablePopulator(result, headers, filterPart) {
         let currentRow;
         let currentColumn;
         let currentKeys;
-        let currentHeader;
         let currentButton;
-        if(filterPart.substring(0,6) == " WHERE"){
+        await headerPopulator(headers, fundCountsTable);
+        if (filterPart.substring(0, 6) == " WHERE") {
             filterPart = " AND" + filterPart.substring(6, filterPart.length);
         }
-        for (let i = -1; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             currentRow = document.createElement("tr");
-            if (i == -1) {
-                currentKeys = Object.keys(result[0]);
-            } else {
-                currentKeys = Object.keys(result[i]);
-            }
+            currentKeys = Object.keys(result[i]);
             if (i == 0 && result[0][currentKeys[0]] == null) {
                 continue;
             }
             for (let k = 0; k < currentKeys.length; k++) {
-                if (i == -1) {
-                    currentHeader = document.createElement("th");
-                    currentHeader.innerHTML = headers[k];
-                    currentRow.append(currentHeader);
-                } else if (k == 0) {
+                if (k == 0) {
                     currentColumn = document.createElement("td");
                     currentButton = document.createElement("button");
                     currentButton.innerHTML = result[i][currentKeys[k]];
@@ -198,28 +200,18 @@ async function dashboardController(buttonType, refiltering) {
         let currentRow;
         let currentColumn;
         let currentKeys;
-        let currentHeader;
         let headers = ["Management Code + Fund ID", "English Long Name"];
         let query = "SELECT CONCAT(MGMT_CODE, FUND_ID), ENG_LONG_NM FROM fsrv_prod f WHERE f." + queryType + "=('" + queryTarget + "')" + filterPart;
         console.log(query);
+        await headerPopulator(headers, fundDisplayTable);
         let result = await queryProcess(query);
-        for (let i = -1; i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             currentRow = document.createElement("tr");
-            if (i == -1) {
-                currentKeys = Object.keys(result[0]);
-            } else {
-                currentKeys = Object.keys(result[i]);
-            }
+            currentKeys = Object.keys(result[i]);
             for (let k = 0; k < currentKeys.length; k++) {
-                if (i == -1) {
-                    currentHeader = document.createElement("th");
-                    currentHeader.innerHTML = headers[k];
-                    currentRow.append(currentHeader);
-                } else {
-                    currentColumn = document.createElement("td");
-                    currentColumn.innerHTML = result[i][currentKeys[k]];
-                    currentRow.append(currentColumn);
-                }
+                currentColumn = document.createElement("td");
+                currentColumn.innerHTML = result[i][currentKeys[k]];
+                currentRow.append(currentColumn);
             }
             fundDisplayTable.append(currentRow);
         }
