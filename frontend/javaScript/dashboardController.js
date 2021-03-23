@@ -13,6 +13,7 @@ async function dashboardController(buttonType, refiltering) {
         await queryChooser(buttonType);
         fundCountsTable.setAttribute("currentType", buttonType);
     }
+
     async function filterSetup() {
         let filters = await filterGather();
         for (let i = 0; i < filters.length; i++) {
@@ -44,6 +45,7 @@ async function dashboardController(buttonType, refiltering) {
             }
         }
     }
+
     async function filterGather() {
         let filters = [];
         filters[0] = document.getElementById("prodTypeChooser");
@@ -52,6 +54,7 @@ async function dashboardController(buttonType, refiltering) {
         filters[3] = document.getElementById("riskChooser");
         return filters;
     }
+
     async function queryFilterAssembler(choices, filters, hasWhere) {
         let statement = " ";
         let noFiltering = true;
@@ -77,6 +80,7 @@ async function dashboardController(buttonType, refiltering) {
         console.log(statement);
         return statement;
     }
+
     async function queryChooser(buttonType) {
         let query;
         let headers;
@@ -153,6 +157,7 @@ async function dashboardController(buttonType, refiltering) {
         let result = await queryProcess(query);
         await countsTablePopulator(result, headers, filterPart);
     }
+
     async function headerPopulator(headers, location) {
         let currentRow = document.createElement("tr");
         let currentHeader;
@@ -163,6 +168,7 @@ async function dashboardController(buttonType, refiltering) {
         }
         location.append(currentRow);
     }
+
     async function countsTablePopulator(result, headers, filterPart) {
         let currentRow;
         let currentColumn;
@@ -195,6 +201,7 @@ async function dashboardController(buttonType, refiltering) {
             fundCountsTable.append(currentRow);
         }
     }
+    
     async function fundTablePopulator(fundDisplayTable, queryType, queryTarget, filterPart) {
         await removeAllChildNodes(fundDisplayTable);
         let currentRow;
