@@ -1,23 +1,20 @@
 async function queryConnector(){
-    let queryForm = document.getElementById("queryForm");
-    let symbolInput = document.getElementById("symbolInput");
-    if(queryForm.getAttribute('hasListener') == null){
-        queryForm.addEventListener("submit", async function (e){
-            if(symbolInput.value != ""){
-                e.preventDefault();
-                let result = await queryProcess("SELECT * FROM fsrv_prod WHERE concat(MGMT_CODE, FUND_ID) = '" + symbolInput.value + "'");
-                if(result[0] != null){
-                    await openResultsPage(result);
-                }else{
-                    console.log("No product exists by that name");
-                }
+    let queryForm = $("#queryForm")[0];
+    let symbolInput = $("#symbolInput")[0];
+    $(queryForm).submit(async function (e){
+        if($(symbolInput).val() !== ""){
+            e.preventDefault();
+            let result = await queryProcess("SELECT * FROM fsrv_prod WHERE concat(MGMT_CODE, FUND_ID) = '" + $(symbolInput).val() + "'");
+            if(result[0] !== null){
+                await openResultsPage(result);
             }else{
-                console.log("No product has been entered");
-                e.preventDefault();
+                console.log("No product exists by that name");
             }
-        });
-        queryForm.setAttribute('hasListener', true);
-    }
+        }else{
+            console.log("No product has been entered");
+            e.preventDefault();
+        }
+    });
 }
 async function openResultsPage(result){
     await pageManager.changePage(2,0,1);

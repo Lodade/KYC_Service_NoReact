@@ -7,43 +7,39 @@ async function pageManagement(){
     let resultsArea;
     return {
         pageGather: async function(){
-            explore_dashboard = document.getElementById("explore_dashboard");
-            explore_viewProduct = document.getElementById("explore_viewProduct");
-            manage = document.getElementById("manage");
-            resultsArea = document.getElementById("resultsArea");
-            displayArea = document.getElementById("displayArea");
-            await removeAllChildNodes(displayArea);            
+            explore_dashboard = $("#explore_dashboard")[0];
+            explore_viewProduct = $("#explore_viewProduct")[0];
+            manage = $("#manage")[0];
+            resultsArea = $("#resultsArea")[0];
+            displayArea = $("#displayArea")[0];
+            $(displayArea).empty();            
         },
         changePage: async function(mainSection, subSection, resultsSubSection){
-            if(mainSection == 1){
+            if(mainSection === 1){
 
-            }else if(mainSection == 2){
-                if(subSection == 1){
-                    await removeAllChildNodes(displayArea);
-                    displayArea.appendChild(explore_dashboard);
+            }else if(mainSection === 2){
+                if(subSection === 1){
+                    $(displayArea).empty();
+                    $(displayArea).append(explore_dashboard);
                     await dashboardController("mgmtCo");
                 }
-                if(subSection == 2){
-                    await removeAllChildNodes(displayArea);
-                    displayArea.appendChild(explore_viewProduct);
+                if(subSection === 2){
+                    $(displayArea).empty();
+                    $(displayArea).append(explore_viewProduct);
                     await queryConnector();
                 }
-                if(resultsSubSection == 1){
-                    await removeAllChildNodes(displayArea);
-                    displayArea.appendChild(resultsArea);
+                if(resultsSubSection === 1){
+                    $(displayArea).empty();
+                    $(displayArea).append(resultsArea);
+                    await onResultsShow();
                 }
-            }else if(mainSection == 3){
+            }else if(mainSection === 3){
 
-            }else if(mainSection == 4){
+            }else if(mainSection === 4){
 
             }
         }
     };
-}
-async function removeAllChildNodes(parent){
-    while(parent.firstChild){
-        parent.removeChild(parent.firstChild);
-    }
 }
 (async function () {
     pageManager = await pageManagement();

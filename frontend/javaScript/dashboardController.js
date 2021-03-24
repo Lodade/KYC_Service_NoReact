@@ -1,27 +1,27 @@
 async function dashboardController(buttonType, refiltering) {
-    let fundCountsTable = document.getElementById("fundCountsTable");
-    let fundDisplayTable = document.getElementById("fundDisplayTable");
-    if (fundCountsTable.getAttribute("currentType") == undefined) {
-        fundCountsTable.setAttribute("currentType", buttonType);
+    let fundCountsTable = $("#fundCountsTable")[0];
+    let fundDisplayTable = $("#fundDisplayTable")[0];
+    if ($(fundCountsTable).attr("currentType") === undefined) {
+        $(fundCountsTable).attr("currentType", buttonType);
         await filterSetup();
         await queryChooser(buttonType);
-    } else if (refiltering == true) {
-        await removeAllChildNodes(fundCountsTable);
-        await queryChooser(fundCountsTable.getAttribute("currentType"));
-    } else if (fundCountsTable.getAttribute("currentType") != buttonType) {
-        await removeAllChildNodes(fundCountsTable);
+    } else if (refiltering === true) {
+        $(fundCountsTable).empty();
+        await queryChooser($(fundCountsTable).attr("currentType"));
+    } else if ($(fundCountsTable).attr("currentType") !== buttonType) {
+        $(fundCountsTable).empty();
         await queryChooser(buttonType);
-        fundCountsTable.setAttribute("currentType", buttonType);
+        $(fundCountsTable).attr("currentType", buttonType);
     }
 
     async function filterSetup() {
         let filters = await filterGather();
         for (let i = 0; i < filters.length; i++) {
-            filters[i].onchange = async () => { await dashboardController("", true) };
+            $(filters[i]).change(async () => { await dashboardController("", true); });
         }
         let query;
         for (let i = 0; i < filters.length; i++) {
-            if (i != 3) {
+            if (i !== 3) {
                 query = "SELECT DISTINCT(fp." + filters[i].name + "), f2.FULL_" + filters[i].name + " FROM fsrv_prod fp, fsrv_" +
                     filters[i].name + "_enum f2 WHERE fp." + filters[i].name + "=f2." + filters[i].name;
             } else {
@@ -32,26 +32,26 @@ async function dashboardController(buttonType, refiltering) {
                 let currentKeys = Object.keys(result[k]);
                 let optionText = "";
                 for (let p = 0; p < currentKeys.length; p++) {
-                    if (p != (currentKeys.length - 1)) {
+                    if (p !== (currentKeys.length - 1)) {
                         optionText += result[k][currentKeys[p]] + " ";
                     } else {
                         optionText += result[k][currentKeys[p]];
                     }
                 }
                 let option = document.createElement("option");
-                option.value = result[k][currentKeys[0]];
-                option.innerHTML = optionText;
-                filters[i].append(option);
+                $(option).val(result[k][currentKeys[0]]);
+                $(option).html(optionText);
+                $(filters[i]).append(option);
             }
         }
     }
 
     async function filterGather() {
         let filters = [];
-        filters[0] = document.getElementById("prodTypeChooser");
-        filters[1] = document.getElementById("loadTypeChooser");
-        filters[2] = document.getElementById("classificationChooser");
-        filters[3] = document.getElementById("riskChooser");
+        filters[0] = $("#prodTypeChooser")[0];
+        filters[1] = $("#loadTypeChooser")[0];
+        filters[2] = $("#classificationChooser")[0];
+        filters[3] = $("#riskChooser")[0];
         return filters;
     }
 
@@ -60,19 +60,19 @@ async function dashboardController(buttonType, refiltering) {
         let noFiltering = true;
         let prior = false;
         for (let i = 0; i < choices.length; i++) {
-            if (choices[i] != "") {
+            if (choices[i] !== "") {
                 noFiltering = false;
             }
         }
         for (let i = 0; i < choices.length; i++) {
-            if (!hasWhere && i == 0 && noFiltering == false) {
+            if (!hasWhere && i === 0 && noFiltering === false) {
                 statement += "WHERE ";
-            } else if (hasWhere && i == 0 && noFiltering == false) {
+            } else if (hasWhere && i === 0 && noFiltering === false) {
                 statement += "AND ";
             }
-            if (choices[i] != "" && prior == true) {
+            if (choices[i] !== "" && prior === true) {
                 statement += " AND " + "f." + filters[i].name + "=('" + choices[i] + "')";
-            } else if (choices[i] != "") {
+            } else if (choices[i] !== "") {
                 statement += "f." + filters[i].name + "=('" + choices[i] + "')";
                 prior = true;
             }
@@ -94,7 +94,7 @@ async function dashboardController(buttonType, refiltering) {
         switch (buttonType) {
             case "mgmtCo":
                 filterPart = await queryFilterAssembler(choices, filters, false);
-                if (filterPart.substring(0, 6) == " WHERE") {
+                if (filterPart.substring(0, 6) === " WHERE") {
                     copy = " AND" + filterPart.substring(6, filterPart.length);
                 }
                 copy = copy.replace(/\sf\W/g, " f2.");
@@ -142,7 +142,7 @@ async function dashboardController(buttonType, refiltering) {
                 break;
             case "risk":
                 filterPart = await queryFilterAssembler(choices, filters, false);
-                if (filterPart.substring(0, 6) == " WHERE") {
+                if (filterPart.substring(0, 6) === " WHERE") {
                     copy = " AND" + filterPart.substring(6, filterPart.length);
                 }
                 copy = copy.replace(/\sf\W/g, " f2.");
@@ -163,10 +163,10 @@ async function dashboardController(buttonType, refiltering) {
         let currentHeader;
         for (let i = 0; i < headers.length; i++) {
             currentHeader = document.createElement("th");
-            currentHeader.innerHTML = headers[i];
-            currentRow.append(currentHeader);
+            $(currentHeader).html(headers[i]);
+            $(currentRow).append(currentHeader);
         }
-        location.append(currentRow);
+        $(location).append(currentRow);
     }
 
     async function countsTablePopulator(result, headers, filterPart) {
@@ -175,35 +175,35 @@ async function dashboardController(buttonType, refiltering) {
         let currentKeys;
         let currentButton;
         await headerPopulator(headers, fundCountsTable);
-        if (filterPart.substring(0, 6) == " WHERE") {
+        if (filterPart.substring(0, 6) === " WHERE") {
             filterPart = " AND" + filterPart.substring(6, filterPart.length);
         }
         for (let i = 0; i < result.length; i++) {
             currentRow = document.createElement("tr");
             currentKeys = Object.keys(result[i]);
-            if (i == 0 && result[0][currentKeys[0]] == null) {
+            if (i === 0 && result[0][currentKeys[0]] === null) {
                 continue;
             }
             for (let k = 0; k < currentKeys.length; k++) {
-                if (k == 0) {
+                if (k === 0) {
                     currentColumn = document.createElement("td");
                     currentButton = document.createElement("button");
-                    currentButton.innerHTML = result[i][currentKeys[k]];
-                    currentButton.onclick = async () => { await fundTablePopulator(fundDisplayTable, currentKeys[k], result[i][currentKeys[k]], filterPart) };
-                    currentColumn.append(currentButton);
-                    currentRow.append(currentColumn);
+                    $(currentButton).html(result[i][currentKeys[k]]);
+                    $(currentButton).click(async () => { await fundTablePopulator(fundDisplayTable, currentKeys[k], result[i][currentKeys[k]], filterPart); });
+                    $(currentColumn).append(currentButton);
+                    $(currentRow).append(currentColumn);
                 } else {
                     currentColumn = document.createElement("td");
-                    currentColumn.innerHTML = result[i][currentKeys[k]];
-                    currentRow.append(currentColumn);
+                    $(currentColumn).html(result[i][currentKeys[k]]);
+                    $(currentRow).append(currentColumn);
                 }
             }
-            fundCountsTable.append(currentRow);
+            $(fundCountsTable).append(currentRow);
         }
     }
     
     async function fundTablePopulator(fundDisplayTable, queryType, queryTarget, filterPart) {
-        await removeAllChildNodes(fundDisplayTable);
+        $(fundDisplayTable).empty();
         let currentRow;
         let currentColumn;
         let currentKeys;
@@ -217,10 +217,10 @@ async function dashboardController(buttonType, refiltering) {
             currentKeys = Object.keys(result[i]);
             for (let k = 0; k < currentKeys.length; k++) {
                 currentColumn = document.createElement("td");
-                currentColumn.innerHTML = result[i][currentKeys[k]];
-                currentRow.append(currentColumn);
+                $(currentColumn).html(result[i][currentKeys[k]]);
+                $(currentRow).append(currentColumn);
             }
-            fundDisplayTable.append(currentRow);
+            $(fundDisplayTable).append(currentRow);
         }
     }
 }

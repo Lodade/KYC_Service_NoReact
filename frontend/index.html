@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
-	<title>KYC Service</title>
-	<link rel="stylesheet" type="text/css" href="frontend/css/styles.css"></link>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Service</title>
+    <link rel="stylesheet" type="text/css" href="frontend/css/styles.css">
+    </link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <div class="topNavBar">
         <a>Home</a>
-		<a>Explore</a>
+        <a>Explore</a>
         <a>Analyze</a>
         <a>Manage</a>
     </div>
-    <div class="sideNavBar"> 
+    <div class="sideNavBar">
         <a onclick="(async () => {await pageManager.changePage(2,1);})()">Dashboard</a>
         <a onclick="(async () => {await pageManager.changePage(2,2);})()">View Product</a>
         <a>View Related</a>
@@ -31,11 +34,16 @@
         <div id="explore_dashboard">
             <button type="button" class="dashboardButton">Fundserv</button>
             <button type="button" class="dashboardButton">Fundata</button><br>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('mgmtCo', false);})()">Mgmt Co.</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('prodType', false);})()">Prod. Type</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('loadType', false);})()">Load Type</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('classification', false);})()">Classification</button>
-            <button type="button" class="dashboardButton" onclick="(async () => {await dashboardController('risk', false);})()">Risk</button><br>
+            <button type="button" class="dashboardButton"
+                onclick="(async () => {await dashboardController('mgmtCo', false);})()">Mgmt Co.</button>
+            <button type="button" class="dashboardButton"
+                onclick="(async () => {await dashboardController('prodType', false);})()">Prod. Type</button>
+            <button type="button" class="dashboardButton"
+                onclick="(async () => {await dashboardController('loadType', false);})()">Load Type</button>
+            <button type="button" class="dashboardButton"
+                onclick="(async () => {await dashboardController('classification', false);})()">Classification</button>
+            <button type="button" class="dashboardButton"
+                onclick="(async () => {await dashboardController('risk', false);})()">Risk</button><br>
             <p><b>Management Company Dashboard</b></p>
             <form>
                 <label for="PROD_TYPE">Prod. Type:</label>
@@ -277,7 +285,8 @@
                 </tr>
                 <tr>
                     <td><b>Minimums:</b></td>
-                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('minimums','hiddenMinimums');})()">Toggle Section</button></td>
+                    <td><button type="button" id="minimumsExpandButton" class="expandButton">Toggle Section</button>
+                    </td>
                 </tr>
                 <tr class="hiddenMinimums minimums">
                     <td>Minimum Initial Investment</td>
@@ -309,7 +318,10 @@
                 </tr>
                 <tr>
                     <td><b>Eligible Provinces:</b></td>
-                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('provinces','hiddenProvinces');})()">Toggle Section</button> <span id="provincesStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" id="eligibleProvincesExpandButton" class="expandButton">Toggle
+                            Section</button>
+                        <span id="provincesStatusButton" class="statusButton"></span>
+                    </td>
                 </tr>
                 <tr class="hiddenProvinces provinces">
                     <td>Alberta</td>
@@ -365,7 +377,10 @@
                 </tr>
                 <tr>
                     <td><b>Eligible Transactions:</b></td>
-                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('transactions','hiddenTransactions');})()">Toggle Section</button> <span id="transactionsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" id="eligibleTransactionsExpandButton"
+                            class="expandButton">ToggleSection</button>
+                        <span id="transactionsStatusButton" class="statusButton"></span>
+                    </td>
                 </tr>
                 <tr class="hiddenTransactions transactions">
                     <td>Buy</td>
@@ -433,167 +448,172 @@
                 </tr>
                 <tr>
                     <td><b>Accounts - Client Name:</b></td>
-                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('cnaccounts','hiddenCnaccounts');})()">Toggle Section</button> <span id="cnaccountsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" id="accountsCNExpandButton" class="expandButton">ToggleSection</button>
+                        <span id="cnaccountsStatusButton" class="statusButton"></span>
+                    </td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>01</td>
                     <td id="01_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>02</td>
                     <td id="02_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>04</td>
                     <td id="04_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>05</td>
                     <td id="05_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>06</td>
                     <td id="06_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>07</td>
                     <td id="07_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>08</td>
                     <td id="08_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>10</td>
                     <td id="10_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>11</td>
                     <td id="11_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>12</td>
                     <td id="12_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>13</td>
                     <td id="13_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>14</td>
                     <td id="14_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>15</td>
                     <td id="15_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>16</td>
                     <td id="16_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>17</td>
                     <td id="17_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>18</td>
                     <td id="18_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>19</td>
                     <td id="19_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>20</td>
                     <td id="20_CNACC"></td>
                 </tr>
-                <tr class="hiddenCnaccounts cnaccounts">
+                <tr class="hiddenCNAccounts CNAccounts">
                     <td>21</td>
                     <td id="21_CNACC"></td>
                 </tr>
                 <tr>
                     <td><b>Accounts - Nom/Inter:</b></td>
-                    <td><button type="button" class="expandButton" onclick="(async () => {await toggleDetails('niaccounts','hiddenNiaccounts');})()">Toggle Section</button> <span id="niaccountsStatusButton" class="statusButton"></span></td>
+                    <td><button type="button" id="accountsNIExpandButton" class="expandButton">Toggle Section</button>
+                        <span id="niaccountsStatusButton" class="statusButton"></span>
+                    </td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>01</td>
                     <td id="01_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>02</td>
                     <td id="02_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>04</td>
                     <td id="04_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>05</td>
                     <td id="05_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>06</td>
                     <td id="06_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>07</td>
                     <td id="07_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>08</td>
                     <td id="08_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>10</td>
                     <td id="10_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>11</td>
                     <td id="11_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>12</td>
                     <td id="12_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>13</td>
                     <td id="13_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>14</td>
                     <td id="14_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>15</td>
                     <td id="15_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>16</td>
                     <td id="16_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>17</td>
                     <td id="17_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>18</td>
                     <td id="18_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>19</td>
                     <td id="19_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>20</td>
                     <td id="20_NIACC"></td>
                 </tr>
-                <tr class="hiddenNiaccounts niaccounts">
+                <tr class="hiddenNIAccounts NIAccounts">
                     <td>21</td>
                     <td id="21_NIACC"></td>
                 </tr>
                 <tr>
                     <td><b>Dividend Options:</b></td>
-                    <td><button type="button" class="expandButton" onclick="( async () => {await toggleDetails('dividends','hiddenDividends');})()">Toggle Section</button></td>
+                    <td><button type="button" id="dividendsExpandButton" class="expandButton">Toggle Section</button>
+                    </td>
                 </tr>
                 <tr class="hiddenDividends dividends">
                     <td>Dividend Frequency</td>
@@ -622,10 +642,12 @@
         </div>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="frontend/javaScript/fileUpload.js"></script>
 <script src="frontend/javaScript/pageManager.js"></script>
 <script src="frontend/javaScript/queryManager.js"></script>
 <script src="frontend/javaScript/resultsManager.js"></script>
-<script src="frontend/javaScript/detailsVisibilityControl.js"></script>
 <script src="frontend/javaScript/dashboardController.js"></script>
+<script src="frontend/javaScript/jQueryEventActions.js"></script>
+
 </html>
